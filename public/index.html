@@ -19,18 +19,21 @@ body{margin:0;background:#dcdcdc;}
 ::-webkit-scrollbar-track{background:transparent;}
 
 /* MOBILE-FIRST BASE STYLES */
-#left-menu-btn,#right-menu-btn{position:fixed;z-index:1000;background:var(--panel);border:1px solid var(--bd);border-radius:8px;padding:8px;cursor:pointer;width:48px;height:48px;display:flex;flex-direction:column;justify-content:center;align-items:center;gap:5px;}
+#left-menu-btn,#right-menu-btn{position:fixed;z-index:1001;background:var(--panel);border:1px solid var(--bd);border-radius:8px;padding:8px;cursor:pointer;width:48px;height:48px;display:flex;flex-direction:column;justify-content:center;align-items:center;gap:5px;touch-action:none;pointer-events:auto;}
 #left-menu-btn span,#right-menu-btn span{width:24px;height:2px;background:var(--text);border-radius:1px;display:block;}
 #left-menu-btn{top:12px;left:12px;}
 #right-menu-btn{top:12px;right:12px;}
 
-#sidebar{position:fixed;left:-280px;top:8px;width:280px;height:calc(100vh-16px);z-index:999;transition:left 0.3s ease;border-radius:14px;}
-#right-panel{position:fixed;right:-300px;top:8px;width:280px;height:calc(100vh-16px);z-index:999;transition:right 0.3s ease;border-radius:14px;}
-#menu-overlay{position:fixed;inset:0;background:rgba(0,0,0,0.5);z-index:998;display:none;transition:opacity 0.3s ease;}
+#sidebar{position:fixed;left:-280px;top:8px;width:280px;height:calc(100vh-16px);z-index:1000;transition:left 0.3s cubic-bezier(0.4,0,0.2,1);border-radius:14px;pointer-events:auto;overflow:hidden;}
+#right-panel{position:fixed;right:-280px;top:8px;width:280px;height:calc(100vh-16px);z-index:1000;transition:right 0.3s cubic-bezier(0.4,0,0.2,1);border-radius:14px;pointer-events:auto;overflow:hidden;}
+#menu-overlay{position:fixed;inset:0;background:rgba(0,0,0,0.5);z-index:999;display:none;opacity:0;transition:opacity 0.3s ease;pointer-events:none;}
 
 #sidebar.open{left:8px;}
 #right-panel.open{right:8px;}
-#menu-overlay.active{display:block;}
+#menu-overlay.active{display:block;opacity:1;pointer-events:auto;}
+
+/* Canvas touch support */
+[data-canvas="1"]{touch-action:none;}
 
 /* DESKTOP: show sidebars, hide buttons */
 @media(min-width:769px){
