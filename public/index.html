@@ -19,11 +19,12 @@ body{margin:0;background:#dcdcdc;}
 ::-webkit-scrollbar-track{background:transparent;}
 
 /* Hamburger Menu */
-#hamburger-btn{display:none;position:fixed;top:12px;left:12px;z-index:1000;background:var(--panel);border:1px solid var(--bd);border-radius:8px;padding:8px;cursor:pointer;width:44px;height:44px;flex-direction:column;justify-content:center;gap:5px;}
+#hamburger-btn{display:none;position:fixed;top:12px;left:12px;z-index:1000;background:var(--panel);border:1px solid var(--bd);border-radius:8px;padding:8px;cursor:pointer;width:44px;height:44px;flex-direction:column;justify-content:center;gap:5px;align-items:center;}
 #hamburger-btn span{width:24px;height:2px;background:var(--text);border-radius:1px;transition:all 0.3s;}
-#sidebar.hidden{transform:translateX(-120%)!important;}
-#sidebar-overlay{display:none;position:fixed;inset:0;background:rgba(0,0,0,0.5);z-index:999;}
-#sidebar-overlay.active{display:block;}
+#sidebar{transition:transform 0.3s ease!important;}
+#sidebar.hidden{transform:translateX(-400px)!important;visibility:hidden!important;}
+#sidebar-overlay{display:none;position:fixed;inset:0;background:rgba(0,0,0,0.5);z-index:999;transition:opacity 0.3s ease;}
+#sidebar-overlay.active{display:block;opacity:1;}
 
 /* Mobile Responsive */
 @media(max-width:1024px){
@@ -37,7 +38,7 @@ body{margin:0;background:#dcdcdc;}
 @media(max-width:768px){
   #hamburger-btn{display:flex!important;}
   [style*="position:fixed;inset:0"]{flex-direction:column;padding:4px!important;gap:4px!important;}
-  [style*="width:298px"]{position:fixed!important;left:8px;top:8px;width:280px!important;height:calc(100vh-16px)!important;z-index:1001!important;transition:transform 0.3s ease!important;border-radius:14px!important;}
+  #sidebar{position:fixed!important;left:8px;top:8px;width:280px!important;height:calc(100vh-16px)!important;z-index:1001!important;transition:transform 0.3s ease!important;border-radius:14px!important;}
   [data-canvas="1"]{flex:1!important;width:100%!important;margin-left:0!important;}
   [style*="width:280px"]{display:none!important;}
   [style*="position:absolute;left:50%;top:50%"]{width:90vw!important;padding:16px!important;margin-top:44px!important;}
