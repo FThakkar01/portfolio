@@ -17,6 +17,70 @@ body{margin:0;background:#dcdcdc;}
 ::-webkit-scrollbar{width:9px;height:9px;}
 ::-webkit-scrollbar-thumb{background:rgba(130,130,130,.45);border-radius:6px;}
 ::-webkit-scrollbar-track{background:transparent;}
+
+/* Mobile Responsive */
+@media(max-width:1024px){
+  [style*="width:298px"]{width:200px!important;font-size:12px!important;}
+  [style*="width:280px"]{width:100%!important;max-width:200px!important;}
+  [style*="padding:18px 20px"]{padding:12px 14px!important;}
+  [style*="font-size:17px"]{font-size:14px!important;}
+  [style*="font-size:13.5px"]{font-size:11px!important;}
+}
+
+@media(max-width:768px){
+  [style*="position:fixed;inset:0"]{flex-direction:column;padding:4px!important;gap:4px!important;}
+  [style*="width:298px"]{width:100%!important;max-height:45px;flex-shrink:1;overflow:hidden;border-radius:8px;padding:8px 12px!important;}
+  [data-canvas="1"]{flex:1!important;width:100%!important;}
+  [style*="width:280px"]{display:none!important;}
+  [style*="position:absolute;left:50%;top:50%"]{width:90vw!important;padding:16px!important;}
+  [style*="width:900px"]{width:85vw!important;height:auto!important;padding:20px 16px!important;}
+  [style*="width:880px"]{width:90vw!important;display:flex!important;flex-direction:column!important;gap:24px!important;}
+  [style*="width:920px"]{width:90vw!important;}
+  [style*="width:840px"]{width:85vw!important;height:auto!important;}
+  [style*="font-size:38px"]{font-size:28px!important;margin-bottom:12px!important;}
+  [style*="font-size:17px"]{font-size:13px!important;}
+  [style*="font-size:15.5px"]{font-size:13px!important;}
+  [style*="font-size:15px"]{font-size:12.5px!important;}
+  [style*="padding:46px 10px 140px"]{padding:24px 12px 80px!important;}
+  [style*="padding:56px 10px 140px"]{padding:24px 12px 80px!important;}
+  [style*="grid-template-columns:repeat(4"]{grid-template-columns:repeat(2,1fr)!important;gap:12px!important;}
+  [style*="grid-template-columns:repeat(2,1fr);gap:44px"]{grid-template-columns:1fr!important;gap:24px!important;}
+  [style*="display:flex;gap:48px"]{flex-direction:column!important;gap:24px!important;}
+  [style*="flex:1;min-width:0"]{flex:1!important;width:100%!important;}
+  [style*="font-size:11px;font-weight:700"]{font-size:10px!important;}
+  [style*="padding:28px 28px 26px"]{padding:16px 14px!important;width:100%!important;}
+  [style*="rows=\"5\""]{height:120px!important;}
+  [style*="margin-bottom:28px"]{margin-bottom:16px!important;}
+  [style*="margin-bottom:18px"]{margin-bottom:12px!important;}
+}
+
+@media(max-width:480px){
+  [style*="position:fixed;inset:0"]{padding:2px!important;}
+  [style*="width:298px"]{max-height:40px!important;padding:6px 10px!important;}
+  [style*="font-size:17px"]{font-size:12px!important;}
+  [style*="padding:18px 20px"]{padding:8px 10px!important;}
+  [style*="font-size:13.5px"]{font-size:10px!important;}
+  [style*="font-size:13px"]{font-size:10px!important;}
+  [style*="position:absolute;left:50%;top:50%"]{width:95vw!important;padding:12px!important;}
+  [style*="width:900px"]{width:95vw!important;padding:16px 12px!important;}
+  [style*="width:880px"]{width:95vw!important;padding:12px!important;}
+  [style*="width:920px"]{width:95vw!important;}
+  [style*="width:840px"]{width:95vw!important;}
+  [style*="font-size:38px"]{font-size:22px!important;}
+  [style*="font-size:28px"]{font-size:20px!important;}
+  [style*="font-size:15.5px"]{font-size:12px!important;}
+  [style*="font-size:12.5px"]{font-size:11px!important;}
+  [style*="font-size:13px"]{font-size:11px!important;}
+  [style*="font-size:14.5px"]{font-size:12px!important;}
+  [style*="grid-template-columns:repeat(2"]{grid-template-columns:1fr!important;}
+  [style*="padding:24px"]{padding:12px!important;}
+  [style*="padding:16px"]{padding:8px!important;}
+  [style*="gap:48px"]{gap:16px!important;}
+  [style*="gap:44px"]{gap:16px!important;}
+  [style*="gap:32px"]{gap:12px!important;}
+  [style*="gap:24px"]{gap:12px!important;}
+  input,textarea{font-size:16px!important;}
+}
 </style>
 </helmet>
 
