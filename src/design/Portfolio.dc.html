@@ -1,0 +1,797 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Caveat:wght@400;500;600&amp;display=swap" rel="stylesheet">
+<script src="image-slot.js"></script>
+<style>
+*{box-sizing:border-box;}
+body{margin:0;background:#dcdcdc;}
+::-webkit-scrollbar{width:9px;height:9px;}
+::-webkit-scrollbar-thumb{background:rgba(130,130,130,.45);border-radius:6px;}
+::-webkit-scrollbar-track{background:transparent;}
+</style>
+</helmet>
+
+<div ref="{{rootRef}}" style="--canvas:#efefef;--panel:#ffffff;--bd:#e7e7e7;--text:#1a1a1a;--sub:#8a8a8a;--muted:#bcbcbc;--hover:#f4f4f4;--accent:#2d7ff9;--accentbg:#eaf2fe;--divider:#efefef;--slotbg:#f3f3f3;position:fixed;inset:0;background:var(--canvas);display:flex;gap:8px;padding:8px;font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',system-ui,sans-serif;color:var(--text);font-size:14px;-webkit-font-smoothing:antialiased;">
+
+  <!-- ===================== LEFT SIDEBAR ===================== -->
+  <div data-nopan="1" style="width:298px;flex-shrink:0;background:var(--panel);border:1px solid var(--bd);border-radius:14px;display:flex;flex-direction:column;overflow:hidden;">
+    <div style="padding:18px 20px 14px;">
+      <div style="font-size:17px;font-weight:700;letter-spacing:-.01em;">Freya Thakkar</div>
+      <div style="font-size:13.5px;color:var(--sub);margin-top:1px;">Portfolio</div>
+    </div>
+    <div style="display:flex;align-items:center;justify-content:space-between;padding:0 20px;border-bottom:1px solid var(--divider);">
+      <div style="font-size:13.5px;font-weight:500;padding:9px 0;border-bottom:2px solid var(--accent);margin-bottom:-1px;color:var(--text);">File</div>
+      <span style="display:flex;color:var(--muted);"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="7"></circle><line x1="21" y1="21" x2="16.6" y2="16.6"></line></svg></span>
+    </div>
+
+    <div style="flex:1;overflow-y:auto;padding:14px 12px 18px;">
+      <div style="font-size:10.5px;font-weight:700;letter-spacing:.08em;color:var(--muted);padding:0 8px 8px;">PAGES</div>
+      <sc-for list="{{pages}}" as="pg" hint-placeholder-count="4">
+        <div data-nopan="1" onClick="{{pg.onClick}}" style="display:flex;align-items:center;gap:9px;padding:7px 9px;border-radius:7px;cursor:pointer;font-size:13.5px;font-weight:{{pg.weight}};background:{{pg.bg}};color:{{pg.fg}};">
+          <span style="display:flex;"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path><polyline points="14 2 14 8 20 8"></polyline></svg></span>
+          <span>{{pg.name}}</span>
+        </div>
+      </sc-for>
+
+      <div style="font-size:10.5px;font-weight:700;letter-spacing:.08em;color:var(--muted);padding:18px 8px 6px;display:flex;align-items:center;justify-content:space-between;">
+        <span>LAYERS</span>
+        <span style="display:flex;color:var(--muted);"><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="6 9 12 15 18 9"></polyline></svg></span>
+      </div>
+      <sc-for list="{{layerGroups}}" as="g" hint-placeholder-count="4">
+        <div>
+          <div data-nopan="1" onClick="{{g.onPick}}" style="display:flex;align-items:center;gap:5px;padding:5px 8px;border-radius:6px;cursor:pointer;font-size:13px;color:{{g.fg}};">
+            <span onClick="{{g.onToggle}}" style="display:flex;color:var(--muted);transform:{{g.caret}};transition:transform .15s;"><svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4"><polyline points="6 9 12 15 18 9"></polyline></svg></span>
+            <span style="display:flex;color:var(--muted);"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path><polyline points="14 2 14 8 20 8"></polyline></svg></span>
+            <span>{{g.name}}</span>
+          </div>
+          <sc-if value="{{g.expanded}}" hint-placeholder-val="{{true}}">
+            <sc-for list="{{g.children}}" as="ch" hint-placeholder-count="3">
+              <div data-nopan="1" style="display:flex;align-items:center;gap:8px;padding:4px 8px 4px 31px;font-size:12.5px;color:var(--sub);">
+                <span style="display:flex;color:var(--muted);"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="4" y1="9" x2="20" y2="9"></line><line x1="4" y1="15" x2="20" y2="15"></line><line x1="10" y1="3" x2="8" y2="21"></line><line x1="16" y1="3" x2="14" y2="21"></line></svg></span>
+                <span>{{ch.name}}</span>
+              </div>
+            </sc-for>
+          </sc-if>
+        </div>
+      </sc-for>
+    </div>
+  </div>
+
+  <!-- ===================== CANVAS ===================== -->
+  <div data-canvas="1" ref="{{canvasRef}}" onMouseDown="{{onCanvasDown}}" style="flex:1;position:relative;overflow:hidden;cursor:{{canvasCursor}};">
+    <div style="position:absolute;inset:0;transform-origin:0 0;transform:{{panTransform}};">
+
+      <!-- ABOUT -->
+      <sc-if value="{{isAbout}}" hint-placeholder-val="{{true}}">
+        <div style="position:absolute;left:50%;top:50%;transform:translate(-50%,-50%);width:900px;height:650px;">
+          <!-- annotations -->
+          <div style="position: absolute; left: 70px; top: 21px; width: 176px; font-family: 'Caveat',cursive; font-size: 20px; color: #9a9a9a; line-height: 1.18">explore the sections from here
+            
+          </div>
+          
+
+          <!-- draggable sticker layer -->
+          <sc-for list="{{collage}}" as="sk" hint-placeholder-count="0">
+            <div data-nopan="1" onMouseDown="{{sk.onDown}}" style="{{sk.wrapStyle}}">
+
+              <sc-if value="{{sk.isNotebook}}" hint-placeholder-val="{{false}}">
+                <div style="position:relative;width:236px;height:300px;background:#fdfdfc;border:1px solid #e7e7e7;border-radius:2px 12px 12px 2px;box-shadow:0 12px 28px rgba(0,0,0,.14);overflow:hidden;">
+                  <div style="position:absolute;left:36px;right:0;top:0;bottom:0;background-image:radial-gradient(circle,#dcdcdc 1px,transparent 1.5px);background-size:16px 16px;background-position:8px 22px;"></div>
+                  <div style="position:absolute;left:0;top:0;bottom:0;width:30px;background:#f5f4f1;border-right:1px solid #ececec;"></div>
+                  <div style="position:absolute;left:6px;top:14px;width:23px;height:9px;border-radius:9px;background:linear-gradient(150deg,#dadada,#9b9b9b);box-shadow:0 1px 2px rgba(0,0,0,.28);transform:rotate(-16deg);"></div>
+                  <div style="position:absolute;left:6px;top:46px;width:23px;height:9px;border-radius:9px;background:linear-gradient(150deg,#dadada,#9b9b9b);box-shadow:0 1px 2px rgba(0,0,0,.28);transform:rotate(-16deg);"></div>
+                  <div style="position:absolute;left:6px;top:78px;width:23px;height:9px;border-radius:9px;background:linear-gradient(150deg,#dadada,#9b9b9b);box-shadow:0 1px 2px rgba(0,0,0,.28);transform:rotate(-16deg);"></div>
+                  <div style="position:absolute;left:6px;top:110px;width:23px;height:9px;border-radius:9px;background:linear-gradient(150deg,#dadada,#9b9b9b);box-shadow:0 1px 2px rgba(0,0,0,.28);transform:rotate(-16deg);"></div>
+                  <div style="position:absolute;left:6px;top:142px;width:23px;height:9px;border-radius:9px;background:linear-gradient(150deg,#dadada,#9b9b9b);box-shadow:0 1px 2px rgba(0,0,0,.28);transform:rotate(-16deg);"></div>
+                  <div style="position:absolute;left:6px;top:174px;width:23px;height:9px;border-radius:9px;background:linear-gradient(150deg,#dadada,#9b9b9b);box-shadow:0 1px 2px rgba(0,0,0,.28);transform:rotate(-16deg);"></div>
+                  <div style="position:absolute;left:6px;top:206px;width:23px;height:9px;border-radius:9px;background:linear-gradient(150deg,#dadada,#9b9b9b);box-shadow:0 1px 2px rgba(0,0,0,.28);transform:rotate(-16deg);"></div>
+                  <div style="position:absolute;left:6px;top:238px;width:23px;height:9px;border-radius:9px;background:linear-gradient(150deg,#dadada,#9b9b9b);box-shadow:0 1px 2px rgba(0,0,0,.28);transform:rotate(-16deg);"></div>
+                  <div style="position:absolute;left:6px;top:270px;width:23px;height:9px;border-radius:9px;background:linear-gradient(150deg,#dadada,#9b9b9b);box-shadow:0 1px 2px rgba(0,0,0,.28);transform:rotate(-16deg);"></div>
+                  <div style="position:absolute;left:48px;top:18px;right:16px;font-family:'Caveat',cursive;font-size:16px;color:#6f6f6f;">who doesn't love designing ideas</div>
+                  <div style="position:absolute;left:54px;top:66px;right:20px;display:grid;grid-template-columns:repeat(3,1fr);gap:18px 8px;color:#7a7a7a;font-size:22px;text-align:center;"><span>✳</span><span>❋</span><span>✦</span><span>❉</span><span style="font-size:15px;">◢◣</span><span>✲</span><span>❂</span><span>✸</span><span>⟁</span></div>
+                  <div style="position:absolute;left:48px;bottom:22px;font-family:'Caveat',cursive;font-size:16px;color:#8a8a8a;">and more...</div>
+                </div>
+              </sc-if>
+
+              <sc-if value="{{sk.isPersona}}" hint-placeholder-val="{{false}}">
+                <div style="position:relative;width:130px;height:170px;background:#fff;border-radius:11px;box-shadow:0 9px 22px rgba(0,0,0,.18);overflow:hidden;">
+                  <div style="height:50px;background:#3aa6b9;"></div>
+                  <div style="position:absolute;left:50%;top:22px;transform:translateX(-50%);width:50px;height:50px;border-radius:50%;background:#e7c19c;border:3px solid #fff;overflow:hidden;"><div style="position:absolute;left:50%;top:13px;transform:translateX(-50%);width:22px;height:22px;border-radius:50%;background:#5b3a28;"></div><div style="position:absolute;left:50%;top:34px;transform:translateX(-50%);width:40px;height:22px;border-radius:20px 20px 0 0;background:#3a6b78;"></div></div>
+                  <div style="margin-top:32px;text-align:center;font-weight:700;font-size:13px;color:#222;">Persona</div>
+                  <div style="padding:11px 14px;display:flex;flex-direction:column;gap:8px;">
+                    <div style="height:5px;background:#ededed;border-radius:3px;width:82%;"></div>
+                    <div style="height:5px;background:#ededed;border-radius:3px;"></div>
+                    <div style="height:5px;background:#ededed;border-radius:3px;width:60%;"></div>
+                    <div style="height:5px;background:#ededed;border-radius:3px;width:90%;"></div>
+                  </div>
+                </div>
+              </sc-if>
+
+              <sc-if value="{{sk.isFigma}}" hint-placeholder-val="{{false}}">
+                <div style="width:40px;height:60px;filter:drop-shadow(0 4px 7px rgba(0,0,0,.2));">
+                  <svg width="40" height="60" viewBox="0 0 38 57"><path fill="#1abcfe" d="M19 28.5a9.5 9.5 0 1 1 19 0 9.5 9.5 0 0 1-19 0z"></path><path fill="#0acf83" d="M0 47.5A9.5 9.5 0 0 1 9.5 38H19v9.5a9.5 9.5 0 1 1-19 0z"></path><path fill="#ff7262" d="M19 0v19h9.5a9.5 9.5 0 1 0 0-19H19z"></path><path fill="#f24e1e" d="M0 9.5A9.5 9.5 0 0 0 9.5 19H19V0H9.5A9.5 9.5 0 0 0 0 9.5z"></path><path fill="#a259ff" d="M0 28.5A9.5 9.5 0 0 0 9.5 38H19V19H9.5A9.5 9.5 0 0 0 0 28.5z"></path></svg>
+                </div>
+              </sc-if>
+
+              <sc-if value="{{sk.isUserflows}}" hint-placeholder-val="{{false}}">
+                <div style="width:110px;height:110px;background:#ffe169;box-shadow:0 9px 18px rgba(0,0,0,.2);display:flex;align-items:center;justify-content:center;text-align:center;font-family:'Caveat',cursive;font-weight:600;font-size:27px;color:#3a3722;line-height:1.0;">USER<br>FLOWS</div>
+              </sc-if>
+
+              <sc-if value="{{sk.isPolaroid}}" hint-placeholder-val="{{false}}">
+                <div style="width:290px;background:#fff;padding:14px 14px 0;box-shadow:0 10px 24px rgba(0,0,0,.18);border-radius:2px;">
+                  <div style="overflow:hidden;"><img src="assets/freya.jpg" alt="Freya" draggable="false" style="display:block;width:100%;height:320px;object-fit:cover;object-position:center 12%;transform:scale(1.18);transform-origin:center center;image-rendering:auto;"></div>
+                  <div style="font-family:'Caveat',cursive;font-size:26px;text-align:center;padding:10px 0 14px;color:#3a3a3a;">Hey, it's me</div>
+                </div>
+              </sc-if>
+
+              <sc-if value="{{sk.isPantone}}" hint-placeholder-val="{{false}}">
+                <div style="position:relative;width:150px;height:158px;filter:drop-shadow(0 6px 10px rgba(0,0,0,.18));">
+                  <div style="position:absolute;left:62px;bottom:6px;width:24px;height:132px;background:#fff;border:1px solid #e4e4e4;border-radius:3px;transform-origin:bottom center;transform:rotate(-58deg);"><div style="height:64px;background:#e84c3d;border-radius:2px 2px 0 0;"></div></div>
+                  <div style="position:absolute;left:62px;bottom:6px;width:24px;height:132px;background:#fff;border:1px solid #e4e4e4;border-radius:3px;transform-origin:bottom center;transform:rotate(-43deg);"><div style="height:64px;background:#f0712e;border-radius:2px 2px 0 0;"></div></div>
+                  <div style="position:absolute;left:62px;bottom:6px;width:24px;height:132px;background:#fff;border:1px solid #e4e4e4;border-radius:3px;transform-origin:bottom center;transform:rotate(-28deg);"><div style="height:64px;background:#f6c000;border-radius:2px 2px 0 0;"></div></div>
+                  <div style="position:absolute;left:62px;bottom:6px;width:24px;height:132px;background:#fff;border:1px solid #e4e4e4;border-radius:3px;transform-origin:bottom center;transform:rotate(-14deg);"><div style="height:64px;background:#27ae60;border-radius:2px 2px 0 0;"></div></div>
+                  <div style="position:absolute;left:62px;bottom:6px;width:24px;height:132px;background:#fff;border:1px solid #e4e4e4;border-radius:3px;transform-origin:bottom center;transform:rotate(0deg);"><div style="height:64px;background:#16a085;border-radius:2px 2px 0 0;"></div></div>
+                  <div style="position:absolute;left:62px;bottom:6px;width:24px;height:132px;background:#fff;border:1px solid #e4e4e4;border-radius:3px;transform-origin:bottom center;transform:rotate(14deg);"><div style="height:64px;background:#2980d9;border-radius:2px 2px 0 0;"></div></div>
+                  <div style="position:absolute;left:62px;bottom:6px;width:24px;height:132px;background:#fff;border:1px solid #e4e4e4;border-radius:3px;transform-origin:bottom center;transform:rotate(28deg);"><div style="height:64px;background:#5b4bd6;border-radius:2px 2px 0 0;"></div></div>
+                  <div style="position:absolute;left:62px;bottom:6px;width:24px;height:132px;background:#fff;border:1px solid #e4e4e4;border-radius:3px;transform-origin:bottom center;transform:rotate(43deg);"><div style="height:64px;background:#8e44ad;border-radius:2px 2px 0 0;"></div></div>
+                  <div style="position:absolute;left:62px;bottom:6px;width:24px;height:132px;background:#fff;border:1px solid #e4e4e4;border-radius:3px;transform-origin:bottom center;transform:rotate(58deg);"><div style="height:64px;background:#e84393;border-radius:2px 2px 0 0;"></div></div>
+                  <div style="position:absolute;left:62px;bottom:0;width:24px;height:16px;background:#f4f4f4;border:1px solid #e0e0e0;border-radius:4px;"></div>
+                </div>
+              </sc-if>
+
+              <sc-if value="{{sk.isBook}}" hint-placeholder-val="{{false}}">
+                <image-slot id="{{sk.bookSlot}}" style="display: block; width: 181px; height: 188px; box-shadow: 0 13px 28px rgba(0,0,0,.24); border-radius: 5px" shape="rounded" radius="5" placeholder="{{sk.bookLabel}}"></image-slot>
+              </sc-if>
+
+              <sc-if value="{{sk.isMicron}}" hint-placeholder-val="{{false}}">
+                <div style="position:relative;width:156px;height:13px;filter:drop-shadow(0 4px 5px rgba(0,0,0,.22));">
+                  <div style="position:absolute;left:0;top:0;width:120px;height:13px;background:linear-gradient(to bottom,#fbfaf4,#e9e6da);border-radius:7px 2px 2px 7px;"></div>
+                  <div style="position:absolute;left:22px;top:0;width:46px;height:13px;background:#1c1c1c;"></div>
+                  <div style="position:absolute;left:26px;top:3.5px;font-size:5px;font-weight:800;color:#fff;letter-spacing:.04em;">MICRON</div>
+                  <div style="position:absolute;left:74px;top:3px;width:8px;height:7px;background:#c8362b;"></div>
+                  <div style="position:absolute;left:118px;top:3px;width:24px;height:7px;background:#9a9a9a;border-radius:0 2px 2px 0;"></div>
+                  <div style="position:absolute;left:142px;top:5px;width:12px;height:3px;background:#444;border-radius:0 2px 2px 0;"></div>
+                </div>
+              </sc-if>
+
+              <sc-if value="{{sk.isUsability}}" hint-placeholder-val="{{false}}">
+                <div style="position:relative;width:122px;height:160px;background:#fff;border-radius:11px;box-shadow:0 9px 22px rgba(0,0,0,.18);overflow:hidden;">
+                  <div style="height:32px;background:#2bb3c0;display:flex;align-items:center;padding:0 11px;color:#fff;font-size:15px;">☺</div>
+                  <div style="padding:11px 13px;">
+                    <div style="font-weight:700;font-size:11.5px;color:#222;line-height:1.18;">Usability testing prompt cards</div>
+                    <div style="margin-top:11px;display:flex;flex-direction:column;gap:6px;">
+                      <div style="height:5px;background:#ededed;border-radius:3px;"></div>
+                      <div style="height:5px;background:#ededed;border-radius:3px;width:82%;"></div>
+                      <div style="height:5px;background:#ededed;border-radius:3px;width:92%;"></div>
+                      <div style="height:5px;background:#ededed;border-radius:3px;width:70%;"></div>
+                    </div>
+                  </div>
+                </div>
+              </sc-if>
+
+              <sc-if value="{{sk.isTumbler}}" hint-placeholder-val="{{false}}">
+                <div style="position:relative;width:96px;height:156px;filter:drop-shadow(0 9px 16px rgba(0,0,0,.26));">
+                  <div style="position:absolute;left:62px;top:-26px;width:7px;height:64px;background:#d2dadd;border-radius:4px;transform:rotate(12deg);"></div>
+                  <div style="position:absolute;top:0;left:2px;right:2px;height:15px;background:#d9dee1;border-radius:8px 8px 4px 4px;"></div>
+                  <div style="position:absolute;top:13px;left:5px;right:5px;bottom:0;background:linear-gradient(105deg,#5e3c27 0%,#43291a 55%,#2f1d12 100%);border-radius:4px 4px 13px 13px;border:2px solid rgba(255,255,255,.22);overflow:hidden;">
+                    <div style="position:absolute;left:9px;top:14px;width:20px;height:20px;background:rgba(255,255,255,.18);border-radius:4px;transform:rotate(18deg);"></div>
+                    <div style="position:absolute;left:30px;top:30px;width:16px;height:16px;background:rgba(255,255,255,.14);border-radius:4px;transform:rotate(-12deg);"></div>
+                    <div style="position:absolute;left:50%;top:52%;transform:translate(-50%,-50%) rotate(-3deg);background:#fff;border-radius:7px;padding:6px 9px;font-weight:800;font-size:11.5px;color:#111;text-align:center;line-height:1.02;box-shadow:0 2px 6px rgba(0,0,0,.25);">USER<br>RESEARCH</div>
+                  </div>
+                </div>
+              </sc-if>
+
+              <sc-if value="{{sk.selected}}" hint-placeholder-val="{{false}}">
+                <div data-nopan="1" onMouseDown="{{sk.onDeleteDown}}" onClick="{{sk.onDelete}}" title="Delete" style="position:absolute;top:-13px;right:-13px;width:25px;height:25px;border-radius:50%;background:#ef4444;color:#fff;display:flex;align-items:center;justify-content:center;cursor:pointer;box-shadow:0 2px 7px rgba(0,0,0,.3);z-index:6;">
+                  <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.3"><polyline points="3 6 5 6 21 6"></polyline><path d="M19 6l-1 14a2 2 0 0 1-2 2H8a2 2 0 0 1-2-2L5 6"></path><path d="M10 11v6M14 11v6"></path></svg>
+                </div>
+              </sc-if>
+            </div>
+          </sc-for>
+
+          <!-- intro text -->
+          <div data-nopan="1" style="position: absolute; left: 288px; top: 600px; width: 360px; font-size: 16.5px; line-height: 1.55; color: var(--text)">Hi, I'm Freya Thakkar, an experience designer focused on empowering users with intelligent copilots and ensuring user control in autonomous, automation-based systems. <a href="#" onClick="{{noop}}" style="color:var(--accent);text-decoration:none;">More</a></div>
+          <div style="position: absolute; left: 288px; top: 712px; width: 280px; font-family: 'Caveat',cursive; font-size: 17px; color: #a8a8a8; line-height: 1.25">yep, this is not figma feel free to explore however you like :)</div>
+        <svg width="66" height="78" viewBox="0 0 66 78" style="position: absolute; left: 67px; top: 81px" fill="none" stroke="#b6b6b6" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M54 6 C34 20 18 42 14 70"></path><path d="M4 54 L14 72 L30 63"></path></svg></div>
+      </sc-if>
+
+      <!-- WORK -->
+      <sc-if value="{{isWork}}" hint-placeholder-val="{{true}}">
+        <div style="position:absolute;inset:0;display:flex;justify-content:center;">
+          <div style="width:920px;padding:46px 10px 140px;">
+            <div style="text-align:center;font-size:15px;font-weight:600;margin-bottom:24px;">Worked With</div>
+            <div style="display:grid;grid-template-columns:repeat(4,1fr);gap:24px 32px;justify-items:center;align-items:center;margin:0 auto 52px;max-width:720px;">
+              <sc-for list="{{workedWith}}" as="w" hint-placeholder-count="12"><span style="font-size:16px;font-weight:800;color:var(--muted);letter-spacing:.01em;">{{w}}</span></sc-for>
+            </div><div style="display: grid; grid-template-columns: repeat(2,1fr); gap: 44px 32px;">
+              <sc-for list="{{workCards}}" as="c" hint-placeholder-count="6">
+                <div data-nopan="1" onClick="{{c.onOpen}}" style="cursor:pointer;display:flex;flex-direction:column;">
+                  {{c.previewEl}}
+                  <div style="font-weight:600;font-size:15px;margin-bottom:5px;">{{c.name}}</div>
+                  <div style="font-size:12.5px;line-height:1.5;color:var(--sub);margin-bottom:12px;min-height:36px;">{{c.short}}</div>
+                  <div style="display:flex;flex-wrap:wrap;gap:7px;">
+                    <sc-for list="{{c.tags}}" as="tg" hint-placeholder-count="2"><span style="font-size:11px;padding:3px 9px;border-radius:6px;background:{{tg.bg}};color:{{tg.fg}};font-weight:500;">{{tg.label}}</span></sc-for>
+                  </div>
+                </div>
+              </sc-for>
+            </div>
+            
+          </div>
+        </div>
+      </sc-if>
+
+      <!-- BUILDS -->
+      <sc-if value="{{isBuilds}}" hint-placeholder-val="{{true}}">
+        <div style="position:absolute;inset:0;display:flex;justify-content:center;">
+          <div style="width:920px;padding:56px 10px 140px;">
+            <div style="display:grid;grid-template-columns:repeat(2,1fr);gap:44px 32px;">
+              <sc-for list="{{buildCards}}" as="c" hint-placeholder-count="4">
+                <div data-nopan="1" onClick="{{c.onOpen}}" style="cursor:pointer;display:flex;flex-direction:column;">
+                  {{c.previewEl}}
+                  <div style="font-weight:600;font-size:15px;margin-bottom:5px;">{{c.name}}</div>
+                  <div style="font-size:12.5px;line-height:1.5;color:var(--sub);margin-bottom:12px;min-height:36px;">{{c.short}}</div>
+                  <div style="display:flex;flex-wrap:wrap;gap:7px;">
+                    <sc-for list="{{c.tags}}" as="tg" hint-placeholder-count="2"><span style="font-size:11px;padding:3px 9px;border-radius:6px;background:{{tg.bg}};color:{{tg.fg}};font-weight:500;">{{tg.label}}</span></sc-for>
+                  </div>
+                </div>
+              </sc-for>
+            </div>
+          </div>
+        </div>
+      </sc-if>
+
+      <!-- PLAYGROUND -->
+      <sc-if value="{{isPlayground}}" hint-placeholder-val="{{true}}">
+        <div style="position:absolute;left:50%;top:50%;transform:translate(-50%,-50%);width:840px;height:540px;">
+          <div data-nopan="1" style="position:absolute;left:0;top:60px;width:300px;background:#fff;border:1px solid var(--bd);border-radius:9px;box-shadow:0 10px 28px rgba(0,0,0,.12);overflow:hidden;transform:rotate(-2deg);">
+            <div style="height:22px;background:var(--hover);display:flex;align-items:center;gap:5px;padding:0 9px;"><span style="width:7px;height:7px;border-radius:50%;background:#ff5f57;"></span><span style="width:7px;height:7px;border-radius:50%;background:#febc2e;"></span><span style="width:7px;height:7px;border-radius:50%;background:#28c840;"></span></div>
+            <image-slot id="pg-1" style="display:block;width:100%;height:175px;" shape="rect" placeholder="Experiment"></image-slot>
+          </div>
+          <div data-nopan="1" style="position:absolute;left:330px;top:0;width:250px;background:#fff;border:1px solid var(--bd);border-radius:9px;box-shadow:0 10px 28px rgba(0,0,0,.12);overflow:hidden;transform:rotate(2deg);">
+            <div style="height:22px;background:var(--hover);display:flex;align-items:center;gap:5px;padding:0 9px;"><span style="width:7px;height:7px;border-radius:50%;background:#ff5f57;"></span><span style="width:7px;height:7px;border-radius:50%;background:#febc2e;"></span><span style="width:7px;height:7px;border-radius:50%;background:#28c840;"></span></div>
+            <image-slot id="pg-2" style="display:block;width:100%;height:150px;" shape="rect" placeholder="Experiment"></image-slot>
+          </div>
+          <div data-nopan="1" style="position:absolute;left:600px;top:70px;width:230px;background:#fff;border:1px solid var(--bd);border-radius:9px;box-shadow:0 10px 28px rgba(0,0,0,.12);overflow:hidden;transform:rotate(-1deg);">
+            <div style="height:22px;background:var(--hover);display:flex;align-items:center;gap:5px;padding:0 9px;"><span style="width:7px;height:7px;border-radius:50%;background:#ff5f57;"></span><span style="width:7px;height:7px;border-radius:50%;background:#febc2e;"></span><span style="width:7px;height:7px;border-radius:50%;background:#28c840;"></span></div>
+            <image-slot id="pg-3" style="display:block;width:100%;height:160px;" shape="rect" placeholder="Experiment"></image-slot>
+          </div>
+          <div data-nopan="1" style="position:absolute;left:120px;top:300px;width:270px;background:#fff;border:1px solid var(--bd);border-radius:9px;box-shadow:0 10px 28px rgba(0,0,0,.12);overflow:hidden;transform:rotate(1.5deg);">
+            <div style="height:22px;background:var(--hover);display:flex;align-items:center;gap:5px;padding:0 9px;"><span style="width:7px;height:7px;border-radius:50%;background:#ff5f57;"></span><span style="width:7px;height:7px;border-radius:50%;background:#febc2e;"></span><span style="width:7px;height:7px;border-radius:50%;background:#28c840;"></span></div>
+            <image-slot id="pg-4" style="display:block;width:100%;height:150px;" shape="rect" placeholder="Experiment"></image-slot>
+          </div>
+          <div data-nopan="1" style="position:absolute;left:440px;top:290px;width:300px;background:#fff;border:1px solid var(--bd);border-radius:9px;box-shadow:0 10px 28px rgba(0,0,0,.12);overflow:hidden;transform:rotate(-2.5deg);">
+            <div style="height:22px;background:var(--hover);display:flex;align-items:center;gap:5px;padding:0 9px;"><span style="width:7px;height:7px;border-radius:50%;background:#ff5f57;"></span><span style="width:7px;height:7px;border-radius:50%;background:#febc2e;"></span><span style="width:7px;height:7px;border-radius:50%;background:#28c840;"></span></div>
+            <image-slot id="pg-5" style="display:block;width:100%;height:165px;" shape="rect" placeholder="Experiment"></image-slot>
+          </div>
+        </div>
+      </sc-if>
+
+      <!-- CONTACT -->
+      <sc-if value="{{isContact}}" hint-placeholder-val="{{false}}">
+        <div style="position:absolute;left:50%;top:50%;transform:translate(-50%,-50%);width:880px;display:flex;gap:48px;align-items:flex-start;">
+          <div data-nopan="1" style="flex:1;min-width:0;">
+            <div style="font-size:11px;font-weight:700;letter-spacing:.14em;color:var(--muted);margin-bottom:14px;">GET IN TOUCH</div>
+            <div style="font-size:38px;font-weight:600;line-height:1.1;letter-spacing:-.02em;margin-bottom:18px;color:var(--text);">Let's make<br>something good.</div>
+            <div style="font-size:15.5px;line-height:1.6;color:var(--sub);margin-bottom:28px;max-width:340px;">Have a project, a question, or just want to say hi? Drop a note and I'll get back as soon as I can.</div>
+            <div style="display:flex;flex-direction:column;gap:14px;font-size:14.5px;">
+              <a href="mailto:freyaidesign@gmail.com" style="display:flex;align-items:center;gap:11px;color:var(--text);text-decoration:none;">
+                <span style="width:32px;height:32px;border-radius:8px;background:var(--hover);display:flex;align-items:center;justify-content:center;color:var(--sub);"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><rect x="3" y="5" width="18" height="14" rx="2"></rect><polyline points="3 7 12 13 21 7"></polyline></svg></span>
+                <span>freyaidesign@gmail.com</span>
+              </a>
+              <a href="https://www.linkedin.com/in/freya-thakkar/" target="_blank" rel="noopener" style="display:flex;align-items:center;gap:11px;color:var(--text);text-decoration:none;">
+                <span style="width:32px;height:32px;border-radius:8px;background:var(--hover);display:flex;align-items:center;justify-content:center;color:var(--sub);"><svg width="15" height="15" viewBox="0 0 24 24" fill="currentColor"><path d="M4 4h4v16H4zM6 2.5a2 2 0 1 1 0 4 2 2 0 0 1 0-4zM10 8h4v2.2c.7-1.3 2.1-2.4 4-2.4 4 0 5 2.6 5 6V20h-4v-5.6c0-1.6-.6-2.7-2.2-2.7-1.6 0-2.4 1-2.4 2.7V20h-4z"></path></svg></span>
+                <span>linkedin.com/in/freya-thakkar</span>
+              </a>
+              <a href="https://medium.com/@freyaidesign" target="_blank" rel="noopener" style="display:flex;align-items:center;gap:11px;color:var(--text);text-decoration:none;">
+                <span style="width:32px;height:32px;border-radius:8px;background:var(--hover);display:flex;align-items:center;justify-content:center;color:var(--sub);"><svg width="15" height="15" viewBox="0 0 24 24" fill="currentColor"><ellipse cx="6.5" cy="12" rx="5" ry="6"></ellipse><ellipse cx="16" cy="12" rx="2.2" ry="6"></ellipse><ellipse cx="21" cy="12" rx="1.2" ry="5.5"></ellipse></svg></span>
+                <span>medium.com/@freyaidesign</span>
+              </a>
+            </div>
+          </div>
+          <form data-nopan="1" action="https://formsubmit.co/freyaidesign@gmail.com" method="POST" style="flex:1;min-width:0;background:var(--panel);border:1px solid var(--bd);border-radius:14px;padding:28px 28px 26px;display:flex;flex-direction:column;gap:14px;box-shadow:0 12px 30px rgba(0,0,0,.06);">
+            <input type="hidden" name="_subject" value="New message from freyathakkar.in">
+            <input type="hidden" name="_captcha" value="false">
+            <input type="hidden" name="_next" value="https://freyathakkar.in/">
+            <div style="display:flex;flex-direction:column;gap:6px;">
+              <label style="font-size:11.5px;font-weight:600;letter-spacing:.06em;color:var(--sub);">NAME</label>
+              <input name="name" required style="font:inherit;font-size:14.5px;padding:11px 13px;border:1px solid var(--bd);border-radius:9px;background:var(--canvas);color:var(--text);outline:none;">
+            </div>
+            <div style="display:flex;flex-direction:column;gap:6px;">
+              <label style="font-size:11.5px;font-weight:600;letter-spacing:.06em;color:var(--sub);">EMAIL</label>
+              <input type="email" name="email" required style="font:inherit;font-size:14.5px;padding:11px 13px;border:1px solid var(--bd);border-radius:9px;background:var(--canvas);color:var(--text);outline:none;">
+            </div>
+            <div style="display:flex;flex-direction:column;gap:6px;">
+              <label style="font-size:11.5px;font-weight:600;letter-spacing:.06em;color:var(--sub);">SUBJECT</label>
+              <input name="subject" placeholder="Project, role, or hello" style="font:inherit;font-size:14.5px;padding:11px 13px;border:1px solid var(--bd);border-radius:9px;background:var(--canvas);color:var(--text);outline:none;">
+            </div>
+            <div style="display:flex;flex-direction:column;gap:6px;">
+              <label style="font-size:11.5px;font-weight:600;letter-spacing:.06em;color:var(--sub);">MESSAGE</label>
+              <textarea name="message" rows="5" required style="font:inherit;font-size:14.5px;padding:11px 13px;border:1px solid var(--bd);border-radius:9px;background:var(--canvas);color:var(--text);outline:none;resize:vertical;"></textarea>
+            </div>
+            <button type="submit" style="margin-top:6px;font:inherit;font-size:14px;font-weight:600;padding:12px 18px;border:none;border-radius:10px;background:var(--accent);color:#fff;cursor:pointer;display:inline-flex;align-items:center;justify-content:center;gap:8px;">Send message <svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor"><path d="M3 11l18-8-8 18-2-7-8-3z"></path></svg></button>
+          </form>
+        </div>
+      </sc-if>
+
+      <sc-for list="{{items}}" as="it" hint-placeholder-count="0">
+        <div data-nopan="1" onMouseDown="{{it.onDown}}" style="{{it.wrapStyle}}">
+          <sc-if value="{{it.isNote}}" hint-placeholder-val="{{false}}">
+            <div contentEditable="true" suppressContentEditableWarning="true" onBlur="{{it.onBlur}}" style="{{it.textStyle}}">{{it.text}}</div>
+          </sc-if>
+          <sc-if value="{{it.selected}}" hint-placeholder-val="{{false}}">
+            <div data-nopan="1" onMouseDown="{{it.onDeleteDown}}" onClick="{{it.onDelete}}" title="Delete" style="position:absolute;top:-12px;right:-12px;width:24px;height:24px;border-radius:50%;background:#ef4444;color:#fff;display:flex;align-items:center;justify-content:center;cursor:pointer;box-shadow:0 2px 7px rgba(0,0,0,.3);z-index:5;">
+              <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.3"><polyline points="3 6 5 6 21 6"></polyline><path d="M19 6l-1 14a2 2 0 0 1-2 2H8a2 2 0 0 1-2-2L5 6"></path><path d="M10 11v6M14 11v6"></path></svg>
+            </div>
+          </sc-if>
+        </div>
+      </sc-for>
+    </div>
+
+    <!-- bottom toolbar -->
+    <div data-nopan="1" style="position:absolute;left:50%;bottom:22px;transform:translateX(-50%);">
+      <sc-if value="{{noteToolOpen}}" hint-placeholder-val="{{false}}">
+        <div style="position:absolute;left:50%;bottom:56px;transform:translateX(-50%);width:180px;background:#1c1c1c;border-radius:12px;padding:7px;box-shadow:0 12px 30px rgba(0,0,0,.35);">
+          <sc-for list="{{stickyColors}}" as="sc" hint-placeholder-count="6">
+            <div onClick="{{sc.onPick}}" style="display:flex;align-items:center;gap:11px;padding:8px 10px;border-radius:8px;cursor:pointer;color:#eaeaea;font-size:13.5px;">
+              <span style="width:18px;display:flex;justify-content:center;color:#eaeaea;">{{sc.check}}</span>
+              <span style="width:15px;height:15px;border-radius:4px;background:{{sc.color}};"></span>
+              <span>{{sc.name}}</span>
+            </div>
+          </sc-for>
+        </div>
+      </sc-if>
+      <div style="display:flex;align-items:center;gap:4px;background:var(--panel);border:1px solid var(--bd);border-radius:13px;padding:7px;box-shadow:0 8px 24px rgba(0,0,0,.14);">
+        <div onClick="{{onSelectTool}}" style="width:40px;height:38px;border-radius:9px;background:{{selBg}};display:flex;align-items:center;justify-content:center;cursor:pointer;"><svg width="19" height="19" viewBox="0 0 24 24" fill="{{selIcon}}"><path d="M3 11l18-8-8 18-2-7-8-3z"></path></svg></div>
+        <div onClick="{{onNoteTool}}" style="position:relative;width:40px;height:38px;border-radius:9px;background:{{noteBg}};display:flex;align-items:center;justify-content:center;cursor:pointer;color:{{noteIcon}};"><svg width="19" height="19" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7"><path d="M4 4h16v11l-5 5H4z"></path><path d="M20 15h-5v5"></path></svg><span style="position:absolute;right:6px;bottom:5px;width:7px;height:7px;border-radius:50%;background:#2d7ff9;display:{{noteDot}};border:1.5px solid var(--panel);"></span></div>
+        <div onClick="{{onShapeTool}}" style="width:40px;height:38px;border-radius:9px;background:{{shapeBg}};display:flex;align-items:center;justify-content:center;cursor:pointer;color:{{shapeIcon}};"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7"><rect x="4" y="4" width="16" height="16" rx="2.5"></rect></svg></div>
+        <div style="display:flex;align-items:center;justify-content:center;width:20px;cursor:pointer;color:var(--muted);"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><polyline points="6 9 12 15 18 9"></polyline></svg></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ===================== RIGHT PANEL ===================== -->
+  <div data-nopan="1" style="width:298px;flex-shrink:0;background:var(--panel);border:1px solid var(--bd);border-radius:14px;display:flex;flex-direction:column;overflow:hidden;">
+    <div style="display:flex;align-items:center;gap:10px;padding:14px 16px;border-bottom:1px solid var(--divider);">
+      <image-slot id="rp-avatar" style="width:34px;height:34px;flex-shrink:0;" shape="circle" placeholder=""></image-slot>
+      <div style="flex:1;"></div>
+      <div onClick="{{onToggleDark}}" style="width:34px;height:34px;border-radius:8px;display:flex;align-items:center;justify-content:center;cursor:pointer;color:var(--sub);">{{darkIcon}}</div>
+      <a href="mailto:freyaidesign@gmail.com" style="background:var(--accent);color:#fff;font-size:13.5px;font-weight:600;padding:8px 15px;border-radius:9px;text-decoration:none;">Say hii</a>
+    </div>
+    <div style="padding:0 16px;border-bottom:1px solid var(--divider);">
+      <div style="display:inline-block;font-size:13.5px;font-weight:500;padding:11px 0;border-bottom:2px solid var(--accent);margin-bottom:-1px;">Design</div>
+    </div>
+    <div style="flex:1;overflow-y:auto;padding:16px;">
+      <div style="font-size:10.5px;font-weight:700;letter-spacing:.08em;color:var(--muted);padding:2px 2px 10px;">PAGE</div>
+      <div style="display:flex;align-items:center;gap:10px;padding:4px 2px 16px;">
+        <span style="width:15px;height:15px;border-radius:4px;border:1px solid var(--bd);background:#f2f2f2;"></span>
+        <span style="font-size:13.5px;flex:1;">F2F2F2</span>
+        <span style="font-size:13px;color:var(--sub);">{{zoomPct}}</span>
+        <span onClick="{{onResetZoom}}" style="display:flex;color:var(--sub);cursor:pointer;"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7"><circle cx="12" cy="12" r="8"></circle><circle cx="12" cy="12" r="2.5" fill="currentColor" stroke="none"></circle><line x1="12" y1="1.5" x2="12" y2="5"></line><line x1="12" y1="19" x2="12" y2="22.5"></line><line x1="1.5" y1="12" x2="5" y2="12"></line><line x1="19" y1="12" x2="22.5" y2="12"></line></svg></span>
+      </div>
+      <div style="border-top:1px solid var(--divider);">
+        <sc-for list="{{socials}}" as="so" hint-placeholder-count="4">
+          <a href="{{so.href}}" target="_blank" rel="noopener" style="display:flex;align-items:center;justify-content:space-between;padding:13px 2px;border-bottom:1px solid var(--divider);text-decoration:none;color:var(--text);font-size:14px;">
+            <span>{{so.name}}</span>
+            <span style="display:flex;color:var(--muted);"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><line x1="7" y1="17" x2="17" y2="7"></line><polyline points="8 7 17 7 17 16"></polyline></svg></span>
+          </a>
+        </sc-for>
+      </div>
+    </div>
+    <div style="padding:16px;border-top:1px solid var(--divider);">
+      <div style="text-align:center;font-size:12px;color:var(--sub);display:flex;align-items:center;justify-content:center;gap:4px;flex-wrap:wrap;">Made with <svg width="12" height="12" viewBox="0 0 24 24" fill="#e0392f"><path d="M12 21s-7-4.5-9.5-9C.8 8.5 2.4 5 6 5c2 0 3.2 1.2 4 2.4C10.8 6.2 12 5 14 5c3.6 0 5.2 3.5 3.5 7-2.5 4.5-9.5 9-9.5 9z"></path></svg> by Freya Thakkar and Claude</div>
+    </div>
+  </div>
+
+  <!-- ===================== MODAL ===================== -->
+  <sc-if value="{{modalOpen}}" hint-placeholder-val="{{false}}">
+    <div onClick="{{modal.onClose}}" style="position:fixed;inset:0;background:rgba(20,20,20,.32);display:flex;align-items:center;justify-content:center;z-index:80;padding:24px;">
+      <div onClick="{{stop}}" style="width:720px;max-width:100%;max-height:90vh;background:var(--panel);border-radius:16px;box-shadow:0 24px 70px rgba(0,0,0,.4);display:flex;flex-direction:column;overflow:hidden;">
+        <div style="display:flex;align-items:center;padding:14px 18px;border-bottom:1px solid var(--divider);">
+          <div style="display:flex;gap:4px;">
+            <div onClick="{{modal.onPrev}}" style="width:32px;height:32px;border-radius:8px;display:flex;align-items:center;justify-content:center;cursor:pointer;color:var(--text);"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="15 18 9 12 15 6"></polyline></svg></div>
+            <div onClick="{{modal.onNext}}" style="width:32px;height:32px;border-radius:8px;display:flex;align-items:center;justify-content:center;cursor:pointer;color:var(--text);"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="9 18 15 12 9 6"></polyline></svg></div>
+          </div>
+          <div style="flex:1;text-align:center;font-size:14px;font-weight:500;">{{modal.name}}</div>
+          <div onClick="{{modal.onClose}}" style="width:32px;height:32px;border-radius:8px;display:flex;align-items:center;justify-content:center;cursor:pointer;color:var(--text);"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="6" y1="6" x2="18" y2="18"></line><line x1="18" y1="6" x2="6" y2="18"></line></svg></div>
+        </div>
+        <div style="overflow-y:auto;padding:30px 34px 40px;">
+          <div style="width:54px;height:54px;border-radius:13px;background:{{modal.logo}};display:flex;align-items:center;justify-content:center;margin-bottom:18px;"><svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="1.8"><rect x="3" y="3" width="18" height="18" rx="4"></rect><circle cx="15.5" cy="15.5" r="2.2" fill="#fff" stroke="none"></circle></svg></div>
+          <div style="font-size:21px;font-weight:600;margin-bottom:10px;">{{modal.name}}</div>
+          <div style="font-size:15px;line-height:1.55;color:var(--sub);margin-bottom:18px;max-width:560px;">{{modal.desc}}</div>
+          <a href="{{modal.ctaHref}}" target="{{modal.ctaTarget}}" onClick="{{modal.ctaOnClick}}" rel="noopener" style="display:inline-flex;align-items:center;gap:6px;background:var(--hover);border:1px solid var(--bd);color:var(--text);font-size:13px;padding:7px 14px;border-radius:9px;text-decoration:none;cursor:pointer;">{{modal.ctaLabel}} <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9"><line x1="7" y1="17" x2="17" y2="7"></line><polyline points="8 7 17 7 17 16"></polyline></svg></a>
+          <div style="border-top:1px solid var(--divider);margin:26px 0;"></div>
+          <div style="display:flex;gap:46px;margin-bottom:28px;flex-wrap:wrap;">
+            <div><div style="font-size:10.5px;font-weight:700;letter-spacing:.08em;color:var(--muted);margin-bottom:6px;">ROLE</div><div style="font-size:14px;">{{modal.role}}</div></div>
+            <div><div style="font-size:10.5px;font-weight:700;letter-spacing:.08em;color:var(--muted);margin-bottom:6px;">TIMELINE</div><div style="font-size:14px;">{{modal.timeline}}</div></div>
+            <div style="max-width:240px;"><div style="font-size:10.5px;font-weight:700;letter-spacing:.08em;color:var(--muted);margin-bottom:6px;">TEAM</div><div style="font-size:14px;">{{modal.team}}</div></div>
+          </div>
+          <div style="font-size:16px;font-weight:600;margin-bottom:9px;">Problem</div>
+          <div style="font-size:15px;line-height:1.55;color:var(--sub);margin-bottom:24px;max-width:580px;">{{modal.problem}}</div>
+          <sc-if value="{{modal.hasSolution}}" hint-placeholder-val="{{false}}">
+            <div style="font-size:16px;font-weight:600;margin-bottom:9px;">Solution</div>
+            <div style="font-size:15px;line-height:1.55;color:var(--sub);margin-bottom:28px;max-width:580px;">{{modal.solution}}</div>
+          </sc-if>
+          <div style="display:flex;flex-direction:column;gap:18px;">
+            <sc-for list="{{modal.gallery}}" as="im" hint-placeholder-count="4">{{im.el}}</sc-for>
+          </div>
+        </div>
+      </div>
+    </div>
+  </sc-if>
+
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script>
+class Component extends DCLogic {
+  state = { page:'About', dark:false, modalKey:null, tool:'select', stickyColor:'Yellow', layers:{About:true,Work:true,Playground:true,Writing:true}, panX:0, panY:0, zoom:1, items:[], selectedId:null, selSticker:null,
+    collage:[
+      {id:'sk-notebook',kind:'notebook',x:8,y:170,rot:-1.5},
+      {id:'sk-persona',kind:'persona',x:58,y:476,rot:-5},
+      {id:'sk-figma',kind:'figma',x:230,y:118,rot:8},
+      {id:'sk-userflows',kind:'userflows',x:298,y:60,rot:4},
+      {id:'sk-polaroid',kind:'polaroid',x:262,y:188,rot:2.5},
+      {id:'sk-pantone',kind:'pantone',x:418,y:50,rot:-3},
+      {id:'sk-dmmt',kind:'book',cover:'dmmt',x:650,y:20,rot:3},
+      {id:'sk-micron',kind:'micron',x:556,y:262,rot:-26},
+      {id:'sk-usability',kind:'usability',x:660,y:280,rot:5},
+      {id:'sk-tumbler',kind:'tumbler',x:758,y:366,rot:-2},
+    ] };
+
+  fcdn(h){ return 'https://framerusercontent.com/images/'+h; }
+  projects = [
+    { key:'pickabook', page:'Work', name:'Pick A Book', logo:'#c2410c',
+      short:'Reimagining how Indian public libraries serve their communities \u2014 a book-hold service that connects every branch.',
+      desc:'A service-design project reimagining public libraries in India through "Pick A Book," a book-hold portal linked to the e-Granthalaya system.',
+      tags:[['UX Design','b'],['User Research','g'],['Service Design','o']],
+      role:'UX Designer \u00b7 User Researcher',
+      timeline:'Sept 2024 \u2013 Nov 2024',
+      team:['Freya Thakkar','Vritti Dagalia','Yashvi Kamdar','Vanshika Maheshwari'],
+      link:'https://freyathakkar.in/pick-a-book',
+      problem:'Public libraries in India face declining relevance and engagement due to outdated information & systems. Despite their potential as community knowledge hubs, libraries struggle to cater to modern users who seek convenience, accessibility, and efficient resource management.',
+      solution:'Users borrow books online through "Pick A Book," a portal linked to the e-Granthalaya library system. After requesting a book, a pickup slip is sent to the lending library; the book is delivered to the user\u2019s chosen branch, then returned to a dropbox at any convenient library.',
+      preview:'assets/pab-dashboard-home.png',
+      gallery:[
+        'assets/pab-dashboard-home.png',
+        'assets/pab-dashboard-books.png',
+        'assets/pab-dashboard-accounts.png',
+        'assets/pab-system-arch.webp',
+        'https://framerusercontent.com/images/mFjJoqKh0ZhyMZb1ByVYanYemEw.png',
+        'https://framerusercontent.com/images/WRXzqiQ1Pib1m1GbaDkXj7xPJc.png',
+      ] },
+    { key:'garmagaram', page:'Work', name:'Garma Garam', logo:'#e11d48',
+      short:'Bringing the taste of home to your fingertips \u2014 a hyperlocal app delivering authentic home-cooked meals.',
+      desc:'Garma Garam is a hyperlocal food app connecting people with local home chefs to deliver authentic, home-cooked meals.',
+      tags:[['UI Design','b'],['Branding','o'],['Mobile App','p']],
+      role:'UI Designer',
+      timeline:'Feb 2024 \u2013 Apr 2024',
+      team:['Freya Thakkar','Prarthana Jain','Parth Akotkar'],
+      link:'https://freyathakkar.in/garma-garam',
+      problem:'Many people living away from home miss home-cooked food and the warmth, culture and tradition tied to it. Existing food-delivery services can\u2019t replicate this \u2014 an opportunity to connect them with home cooks across India.',
+      solution:'Garma Garam delivers authentic home-cooked meals prepared by local home chefs. With personalized meal plans and flexible pre-booking, the app offers a seamless, homely dining experience while helping home makers earn.',
+      preview:'https://framerusercontent.com/images/1xRUpqliJ5zqhvhn8OH7gyNM.png',
+      gallery:[
+        'https://framerusercontent.com/images/1xRUpqliJ5zqhvhn8OH7gyNM.png',
+        'https://framerusercontent.com/images/Katqg1zc6vaYx96nVmPe5opiQ.png',
+        'https://framerusercontent.com/images/eNbWZaQtV4BV5q8uYJiUdPezHM.png',
+        'https://framerusercontent.com/images/eRRFnsTNca31NowGedZjQUPDXzg.png',
+      ] },
+    { key:'automation', page:'Work', name:'Automation \u2014 n8n', logo:'#0f172a',
+      short:'Designing invisible interfaces that curated intelligence, generated content, and streamlined operations at KPMG.',
+      desc:'An ecosystem of autonomous agents built in n8n and Make to accelerate the KPMG creative team\u2019s pipeline \u2014 without adding cognitive load.',
+      tags:[['AI Design','b'],['Automation','g'],['Workflow','o']],
+      role:'AI Enthusiast \u00b7 Experience Designer',
+      timeline:'May 2025 \u2013 Present',
+      team:['Freya Thakkar','KPMG Creative Team'],
+      problem:'During my internship at KPMG India, our creative team faced a critical challenge: the friction between deep work and the need to stay updated with rapid-fire AI trends. We needed a way to accelerate our pipeline without adding cognitive load.',
+      solution:'I designed an ecosystem of autonomous agents using low-code tools like n8n and Make. My focus wasn\u2019t just on \u201Csaving time\u201D \u2014 it was on designing invisible interfaces that curated intelligence, generated content, and streamlined operations. This project transformed our workflow from a reactive manual process into a proactive, AI-driven system.',
+      preview:'assets/n8n-3.webp',
+      gallery:[ 'assets/n8n-3.webp','assets/n8n-2.webp','assets/n8n-1.webp','https://framerusercontent.com/images/KSdnaJboKegwk0caSKAdeOcgY.png' ] },
+    { key:'innerlabs-web', page:'Work', name:'Innerlabs \u2014 Website Redesign', logo:'#4f46e5',
+      short:'An AI-visibility platform website redesigned to make complex concepts feel clear and enterprise-ready.',
+      desc:'Innerlabs is an AI visibility platform that helps brands understand how they appear across generative AI search engines like ChatGPT, Gemini, and Perplexity.',
+      tags:[['Website Design','b'],['Visual Design','o'],['IA','g']],
+      role:'Product Designer',
+      timeline:'2025',
+      team:['Freya Thakkar'],
+      problem:'The existing website didn\u2019t clearly communicate the product\u2019s value or establish trust with enterprise customers.',
+      solution:'I led the redesign from information architecture to high-fidelity UI, focusing on simplifying complex concepts into a clear narrative. The experience guides users from understanding the problem to exploring the platform\u2019s capabilities. I designed a scalable visual system, improved content hierarchy, introduced interactive product showcases, and optimized key conversion flows \u2014 balancing enterprise credibility with a modern AI-first aesthetic while making technical information easier to understand.',
+      preview:'assets/innerlabs-landing.png',
+      gallery:['assets/innerlabs-landing.png','assets/innerlabs-platforms.png','assets/innerlabs-howitworks.png','assets/innerlabs-web.png'] },
+    { key:'innerlabs-product', page:'Work', name:'Innerlabs \u2014 Product Design', logo:'#4f46e5',
+      short:'Designing the core platform that helps brands monitor their AI visibility across multiple LLMs.',
+      desc:'As the product designer at Innerlabs, I designed the core platform that enables brands to monitor their AI visibility across multiple large language models.',
+      tags:[['Product Design','g'],['UX Design','b'],['Data Viz','o']],
+      role:'Product Designer',
+      timeline:'2025',
+      team:['Freya Thakkar'],
+      problem:'The challenge was transforming large volumes of complex data into interfaces that were intuitive and actionable, while supporting enterprise teams at scale.',
+      solution:'My work included improving onboarding, dashboard experiences, prompt management, analytics, competitor tracking, persona mapping, and AI-generated insights. I collaborated closely with founders and engineers to define workflows, simplify interactions, and prioritize user needs \u2014 every feature designed with scalability in mind while maintaining a clean and efficient user experience.',
+      preview:'assets/innerlabs-overview.png',
+      gallery:['assets/innerlabs-overview.png','assets/innerlabs-geolocation.png','assets/innerlabs-sentiment.png','assets/innerlabs-answers.png','assets/innerlabs-sources-1.png','assets/innerlabs-sources-2.png','assets/innerlabs-product.png'] },
+    { key:'solutelabs-web', page:'Work', name:'SoluteLabs \u2014 Website Redesign', logo:'#0ea5e9',
+      short:'A B2B marketing-site redesign focused on clarity, hierarchy and conversion for SoluteLabs.',
+      desc:'During my internship at SoluteLabs, I redesigned the company\u2019s marketing website to better reflect its expertise in product engineering and digital transformation.',
+      tags:[['Website Design','b'],['UX Design','b'],['User Research','g']],
+      role:'UI/UX Designer (Intern)',
+      timeline:'May 2024 \u2013 Sept 2024',
+      team:['Freya Thakkar','SoluteLabs Design Team'],
+      link:'https://www.solutelabs.com/',
+      problem:'The existing site didn\u2019t clearly communicate the agency\u2019s services or showcase case studies, and key service pages weren\u2019t converting.',
+      solution:'I evaluated the existing information architecture, identified usability issues, and restructured the site for clarity and engagement. The new interface uses a stronger visual hierarchy, consistent components, and streamlined navigation \u2014 a cleaner, more conversion-focused experience aligned with the expectations of modern B2B clients.',
+      preview:'assets/solute-1.png',
+      gallery:['assets/solute-1.png','assets/solute-2.png','assets/solute-3.png','assets/solute-4.png'] },
+    { key:'sourcein-brand', page:'Work', name:'SourceIn \u2014 Brand Design', logo:'#2a2769',
+      short:'A complete brand identity system for SourceIn \u2014 a modern recruitment and talent platform.',
+      desc:'SourceIn is a modern recruitment and talent solutions platform that required a visual identity reflecting trust, innovation, and professionalism.',
+      tags:[['Branding','o'],['Visual Design','o']],
+      role:'Brand Designer',
+      timeline:'2024',
+      team:['Freya Thakkar'],
+      problem:'SourceIn needed an identity that felt approachable while maintaining credibility for both businesses and job seekers \u2014 distinct in a category that often defaults to generic B2B treatments.',
+      solution:'I developed the complete brand system: logo, typography, color palette, iconography, and supporting visual language. Alongside the core branding, I created guidelines and application mockups across digital and marketing touchpoints to ensure consistency \u2014 a strong foundation that scales across products, communication, and future business growth.',
+      preview:'assets/sourcein-logo.png',
+      gallery:['assets/sourcein-1.png','assets/sourcein-2.png','assets/sourcein-3.png','assets/sourcein-4.png'] },
+    { key:'foodtransparency', page:'Writing', name:'The Future of Food Transparency', logo:'#1f8a5b',
+      short:'A speculative design exploring a future where every food product carries a transparent digital history.',
+      desc:'A speculative design project exploring how radical transparency could reshape consumer trust and ethical food systems.',
+      tags:[['Speculative Design','b'],['Writing','o']],
+      role:'Researcher \u00b7 Designer',
+      timeline:'Oct 16, 2024',
+      team:['Freya Thakkar'],
+      link:'https://medium.com/@freyaidesign/the-future-of-food-transparency-a-speculative-design-project-45a734b45436',
+      problem:'This speculative design explores a future where every food product carries a transparent digital history \u2014 from its origin and environmental impact to labor practices and nutritional journey.',
+      solution:'The project questions how emerging technologies could reshape consumer trust, influence purchasing decisions, and encourage more ethical food systems. Through research, future scenarios, and design fiction, it examines what radical transparency might mean for both businesses and consumers.',
+      preview:'assets/writing-food.webp',
+      gallery:['assets/writing-food.webp'] },
+    { key:'humananimal', page:'Writing', name:'Technology Mediating Human-Animal Relationships', logo:'#7c3aed',
+      short:'A speculative research project on how technology could redefine relationships between humans and other species.',
+      desc:'Investigating how AI, wearables, biosensors, and connected ecosystems could mediate human-animal relationships.',
+      tags:[['Speculative Design','b'],['Writing','o']],
+      role:'Researcher \u00b7 Designer',
+      timeline:'Sep 12, 2024',
+      team:['Freya Thakkar'],
+      link:'https://medium.com/@freyaidesign/technology-mediating-human-animal-relationships-91ddaf90e024',
+      problem:'As technology becomes increasingly embedded in our lives, it is also transforming the way humans understand, communicate with, and care for animals.',
+      solution:'This speculative research investigates how AI, wearables, biosensors, and connected ecosystems could redefine relationships between humans and other species \u2014 exploring the opportunities, ethical challenges, and unintended consequences of designing technology for interspecies interaction.',
+      preview:'assets/writing-animal.webp',
+      gallery:['assets/writing-animal.webp'] },
+  ];
+
+  componentDidMount(){
+    this._mv = (e)=>{
+      if(this._dragId!=null){
+        const z=this.state.zoom||1;
+        const nx=this._ix+(e.clientX-this._dsx)/z, ny=this._iy+(e.clientY-this._dsy)/z;
+        this.setState(st=>({items:st.items.map(it=>it.id===this._dragId?{...it,x:nx,y:ny}:it)}));
+        return;
+      }
+      if(this._dragSticker!=null){
+        const z=this.state.zoom||1;
+        const nx=this._ix+(e.clientX-this._dsx)/z, ny=this._iy+(e.clientY-this._dsy)/z;
+        this.setState(st=>({collage:st.collage.map(it=>it.id===this._dragSticker?{...it,x:nx,y:ny}:it)}));
+        return;
+      }
+      if(this._panning){ this.setState({ panX:this._px+(e.clientX-this._sx), panY:this._py+(e.clientY-this._sy) }); }
+    };
+    this._up = ()=>{ this._panning=false; this._dragId=null; this._dragSticker=null; };
+    window.addEventListener('mousemove', this._mv);
+    window.addEventListener('mouseup', this._up);
+    this._wheel = (e)=>{
+      if(!this._canvas) return;
+      e.preventDefault();
+      const r=this._canvas.getBoundingClientRect();
+      const mx=e.clientX-r.left, my=e.clientY-r.top;
+      if(e.ctrlKey || e.metaKey || Math.abs(e.deltaX)<1){
+        this.zoomAt(mx, my, Math.exp(-e.deltaY*0.0015));
+      } else {
+        this.setState(st=>({ panX:st.panX-e.deltaX, panY:st.panY-e.deltaY }));
+      }
+    };
+    if(this._canvas) this._canvas.addEventListener('wheel', this._wheel, {passive:false});
+    this._key = (e)=>{
+      if(e.key!=='Delete' && e.key!=='Backspace') return;
+      if(document.activeElement && document.activeElement.isContentEditable) return;
+      if(this.state.selSticker!=null){ e.preventDefault(); this.setState(st=>({collage:st.collage.filter(x=>x.id!==st.selSticker), selSticker:null})); return; }
+      const id=this.state.selectedId;
+      if(id==null) return;
+      e.preventDefault();
+      this.setState(st=>({items:st.items.filter(x=>x.id!==id), selectedId:null}));
+    };
+    window.addEventListener('keydown', this._key);
+    this.applyTheme();
+  }
+  componentDidUpdate(){ this.applyTheme(); }
+  componentWillUnmount(){ window.removeEventListener('mousemove', this._mv); window.removeEventListener('mouseup', this._up); window.removeEventListener('keydown', this._key); if(this._canvas) this._canvas.removeEventListener('wheel', this._wheel); }
+
+  zoomAt(mx,my,factor){
+    this.setState(st=>{
+      const z=Math.min(3, Math.max(0.3, st.zoom*factor));
+      const k=z/st.zoom;
+      return { zoom:z, panX: mx-k*(mx-st.panX), panY: my-k*(my-st.panY) };
+    });
+  }
+
+  placeItem(e){
+    if(!this._canvas) return;
+    const st=this.state, z=st.zoom;
+    const r=this._canvas.getBoundingClientRect();
+    const cx=(e.clientX-r.left-st.panX)/z, cy=(e.clientY-r.top-st.panY)/z;
+    const isNote=st.tool==='note';
+    const w=isNote?150:170, h=isNote?150:120;
+    const id='it'+(this._seq=(this._seq||0)+1);
+    const item={ id, kind:st.tool, x:cx-w/2, y:cy-h/2, w, h, color:st.stickyColor, text:'' };
+    this.setState(s2=>({ items:[...s2.items, item], selectedId:id, selSticker:null }));
+  }
+
+  _deselectOnPan(){ if(this.state.selectedId!=null||this.state.selSticker!=null) this.setState({selectedId:null, selSticker:null}); }
+
+  applyTheme(){
+    const d = this.state.dark;
+    const T = d
+      ? {canvas:'#262626',panel:'#1b1b1b',bd:'#343434',text:'#e8e8e8',sub:'#909090',muted:'#5f5f5f',hover:'#2b2b2b',accent:'#3b82f6',accentbg:'#17324f',divider:'#2d2d2d',slotbg:'#242424'}
+      : {canvas:'#efefef',panel:'#ffffff',bd:'#e7e7e7',text:'#1a1a1a',sub:'#8a8a8a',muted:'#bcbcbc',hover:'#f4f4f4',accent:'#2d7ff9',accentbg:'#eaf2fe',divider:'#efefef',slotbg:'#f3f3f3'};
+    if(this._root){ Object.keys(T).forEach(k=>this._root.style.setProperty('--'+k, T[k])); }
+  }
+
+  tagColor(c){
+    const d = this.state.dark;
+    const M = {
+      b:{bg:d?'#15314f':'#e6effe',fg:d?'#7eb0f5':'#3b82f6'},
+      o:{bg:d?'#3a2410':'#fff0e6',fg:d?'#f0a06a':'#f97316'},
+      g:{bg:d?'#10331f':'#e7f7ee',fg:d?'#6fcf97':'#16a34a'},
+      p:{bg:d?'#3a1228':'#fde8f1',fg:d?'#f08fc0':'#ec4899'},
+    };
+    return M[c];
+  }
+
+  card(p){
+    const previewEl = p.preview
+      ? React.createElement('img',{src:p.preview,alt:'',draggable:false,style:{display:'block',width:'100%',aspectRatio:'16 / 9',objectFit:'cover',objectPosition:'top center',borderRadius:'10px',marginBottom:'14px',background:'var(--slotbg)'}})
+      : React.createElement('div',{style:{display:'flex',alignItems:'center',justifyContent:'center',width:'100%',aspectRatio:'16 / 9',borderRadius:'10px',marginBottom:'14px',background:'var(--slotbg)',color:'var(--muted)',fontSize:'13px'}}, p.name);
+    return { key:p.key, name:p.name, short:p.short, slotId:'prev-'+p.key, preview:p.preview||'', previewEl,
+      tags:p.tags.map(([label,c])=>{ const t=this.tagColor(c); return {label,bg:t.bg,fg:t.fg}; }),
+      onOpen: ()=>this.setState({modalKey:p.key}) };
+  }
+
+  renderVals(){
+    const s = this.state;
+    const moon = React.createElement('svg',{width:18,height:18,viewBox:'0 0 24 24',fill:'none',stroke:'currentColor',strokeWidth:1.8},React.createElement('path',{d:'M21 12.8A9 9 0 1 1 11.2 3a7 7 0 0 0 9.8 9.8z'}));
+    const sun = React.createElement('svg',{width:18,height:18,viewBox:'0 0 24 24',fill:'none',stroke:'currentColor',strokeWidth:1.8},React.createElement('circle',{cx:12,cy:12,r:4}),React.createElement('g',null,[[12,2,12,4],[12,20,12,22],[4.5,4.5,6,6],[18,18,19.5,19.5],[2,12,4,12],[20,12,22,12],[4.5,19.5,6,18],[18,6,19.5,4.5]].map((l,i)=>React.createElement('line',{key:i,x1:l[0],y1:l[1],x2:l[2],y2:l[3]}))));
+    const check = React.createElement('svg',{width:14,height:14,viewBox:'0 0 24 24',fill:'none',stroke:'currentColor',strokeWidth:2.4},React.createElement('polyline',{points:'4 12 10 18 20 6'}));
+
+    const pages = ['About','Work','Playground','Writing','Contact'].map(n=>({
+      name:n, weight: s.page===n?600:400,
+      bg: s.page===n?'var(--accentbg)':'transparent',
+      fg: s.page===n?'var(--accent)':'var(--text)',
+      onClick:()=>this.setState({page:n, panX:0, panY:0, sticky:false, modalKey:null})
+    }));
+
+    const layerGroups = [
+      {page:'About',children:['About Collage']},
+      {page:'Work',children:this.projects.filter(p=>p.page==='Work').map(p=>p.name)},
+      {page:'Playground',children:['Playground Collage']},
+      {page:'Writing',children:this.projects.filter(p=>p.page==='Writing').map(p=>p.name)},
+      {page:'Contact',children:['Contact Form']},
+    ].map(g=>({
+      name:g.page,
+      fg: s.page===g.page?'var(--accent)':'var(--text)',
+      caret: s.layers[g.page]?'rotate(0deg)':'rotate(-90deg)',
+      expanded: s.layers[g.page],
+      onToggle:(e)=>{ if(e&&e.stopPropagation)e.stopPropagation(); this.setState(st=>({layers:{...st.layers,[g.page]:!st.layers[g.page]}})); },
+      onPick:()=>this.setState({page:g.page, panX:0, panY:0, sticky:false, modalKey:null}),
+      children:g.children.map(c=>({name:c}))
+    }));
+
+    let modal = null;
+    if(s.modalKey){
+      const idx = this.projects.findIndex(p=>p.key===s.modalKey);
+      const p = this.projects[idx];
+      const n = this.projects.length;
+      const isWriting = p.page==='Writing' && !!p.link;
+      modal = { name:p.name, desc:p.desc, role:p.role, problem:p.problem, logo:p.logo,
+        ctaHref: isWriting ? p.link : '#contact',
+        ctaTarget: isWriting ? '_blank' : '_self',
+        ctaLabel: isWriting ? 'Read on Medium' : 'Get in touch for details',
+        ctaOnClick: isWriting ? null : (e)=>{ if(e&&e.preventDefault)e.preventDefault(); this.setState({modalKey:null, page:'Contact', panX:0, panY:0}); },
+        timeline:p.timeline||'\u2014', team:(p.team||['Solo project']).join(', '),
+        solution:p.solution||'', hasSolution:!!p.solution,
+        gallery:(p.gallery||[]).map((src,i)=>({
+          id:'gal-'+p.key+'-'+i,
+          el: src
+            ? React.createElement('img',{key:i,src,alt:'',draggable:false,style:{display:'block',width:'100%',height:'auto',borderRadius:'12px',background:'var(--slotbg)'}})
+            : React.createElement('div',{key:i,style:{display:'flex',alignItems:'center',justifyContent:'center',width:'100%',height:'220px',borderRadius:'12px',background:'var(--slotbg)',color:'var(--muted)',fontSize:'13px'}},'Showcase ' + (i+1))
+        })),
+        onClose:()=>this.setState({modalKey:null}),
+        onPrev:()=>this.setState({modalKey:this.projects[(idx-1+n)%n].key}),
+        onNext:()=>this.setState({modalKey:this.projects[(idx+1)%n].key}) };
+    }
+
+    const noteHex = {Yellow:'#ffe169',Pink:'#ff9ec0',Green:'#a8ecb4',Blue:'#a6d8f7',Purple:'#d3b8f7',Orange:'#ffcf99'};
+    const stickyColors = [['Yellow','#ffe169'],['Pink','#ff8fb3'],['Green','#9be8a6'],['Blue','#9cd2f5'],['Purple','#c9a9f5'],['Orange','#ffc785']].map(([name,color])=>({
+      name, color, check: s.stickyColor===name?check:'',
+      onPick:(e)=>{ if(e&&e.stopPropagation)e.stopPropagation(); this.setState({stickyColor:name}); }
+    }));
+
+    const noteToolOpen = s.tool==='note';
+    const aBg='var(--accent)', tBg='transparent', aIc='#fff', tIc='var(--text)';
+    const selBg=s.tool==='select'?aBg:tBg, selIcon=s.tool==='select'?aIc:tIc;
+    const noteBg=s.tool==='note'?aBg:tBg, noteIcon=s.tool==='note'?aIc:tIc;
+    const shapeBg=s.tool==='shape'?aBg:tBg, shapeIcon=s.tool==='shape'?aIc:tIc;
+    const noteDot = s.tool==='note'?'block':'none';
+    const canvasRef = this._canvasRef || (this._canvasRef=(el)=>{ if(el && el!==this._canvas){ this._canvas=el; if(this._wheel) el.addEventListener('wheel', this._wheel, {passive:false}); } });
+
+    const collage = s.collage.map(it=>{
+      const selected = s.selSticker===it.id;
+      const grab = s.tool==='select';
+      const onDown=(e)=>{ if(!grab) return; if(e&&e.stopPropagation)e.stopPropagation(); this.setState({selSticker:it.id, selectedId:null}); this._dragSticker=it.id; this._dsx=e.clientX; this._dsy=e.clientY; this._ix=it.x; this._iy=it.y; };
+      const onDelete=(e)=>{ if(e&&e.stopPropagation)e.stopPropagation(); this.setState(st=>({collage:st.collage.filter(x=>x.id!==it.id), selSticker:null})); };
+      const onDeleteDown=(e)=>{ if(e&&e.stopPropagation)e.stopPropagation(); };
+      const sel = selected?'outline:2px solid #2d7ff9;outline-offset:4px;border-radius:3px;':'';
+      return {
+        id:it.id, selected, onDown, onDelete, onDeleteDown,
+        wrapStyle:'position:absolute;left:'+it.x+'px;top:'+it.y+'px;transform:rotate('+it.rot+'deg);cursor:'+(grab?'grab':'default')+';'+sel,
+        isNotebook:it.kind==='notebook', isPersona:it.kind==='persona', isFigma:it.kind==='figma',
+        isUserflows:it.kind==='userflows', isPolaroid:it.kind==='polaroid', isPantone:it.kind==='pantone',
+        isBook:it.kind==='book', isMicron:it.kind==='micron', isUsability:it.kind==='usability', isTumbler:it.kind==='tumbler',
+        bookSlot:it.cover==='dmmt'?'ab-book-dmmt':'ab-book-aboutface',
+        bookLabel:it.cover==='dmmt'?"Drop \u2018Don\u2019t Make Me Think\u2019 cover":"Drop \u2018About Face\u2019 cover",
+      };
+    });
+
+    const items = s.items.map(it=>{
+      const dragOnly = s.tool==='select';
+      const selected = s.selectedId===it.id;
+      const selCss = selected?'outline:2px solid #2d7ff9;outline-offset:2px;':'';
+      const onDown=(e)=>{ if(s.tool!=='select') return; if(e&&e.stopPropagation)e.stopPropagation(); this.setState({selectedId:it.id}); this._dragId=it.id; this._dsx=e.clientX; this._dsy=e.clientY; this._ix=it.x; this._iy=it.y; };
+      const onDelete=(e)=>{ if(e&&e.stopPropagation)e.stopPropagation(); this.setState(st=>({items:st.items.filter(x=>x.id!==it.id), selectedId:null})); };
+      const onDeleteDown=(e)=>{ if(e&&e.stopPropagation)e.stopPropagation(); };
+      if(it.kind==='note'){
+        const bg=noteHex[it.color]||'#ffe169';
+        return { id:it.id, isNote:true, selected, onDown, onDelete, onDeleteDown, text:it.text,
+          wrapStyle:'position:absolute;left:'+it.x+'px;top:'+it.y+'px;width:'+it.w+'px;height:'+it.h+'px;background:'+bg+';box-shadow:0 8px 22px rgba(0,0,0,.2);padding:14px;border-radius:2px;cursor:'+(dragOnly?'grab':'default')+';'+selCss,
+          textStyle:"width:100%;height:100%;outline:none;font-family:'Caveat',cursive;font-size:22px;line-height:1.2;color:#2a2a2a;overflow:hidden;",
+          onBlur:(e)=>{ const v=e.target.innerText; this.setState(st=>({items:st.items.map(x=>x.id===it.id?{...x,text:v}:x)})); } };
+      }
+      return { id:it.id, isNote:false, selected, onDown, onDelete, onDeleteDown, text:'', textStyle:'', onBlur:()=>{},
+        wrapStyle:'position:absolute;left:'+it.x+'px;top:'+it.y+'px;width:'+it.w+'px;height:'+it.h+'px;background:rgba(45,127,249,.08);border:2px solid var(--accent);border-radius:8px;cursor:'+(dragOnly?'grab':'default')+';'+selCss };
+    });
+
+    return {
+      rootRef:(el)=>{ this._root=el; },
+      pages, layerGroups,
+      spiral:[0,0,0,0,0,0,0,0,0,0,0],
+      isAbout:s.page==='About', isWork:s.page==='Work', isPlayground:s.page==='Playground', isBuilds:s.page==='Writing', isContact:s.page==='Contact',
+      workCards:this.projects.filter(p=>p.page==='Work').map(p=>this.card(p)),
+      buildCards:this.projects.filter(p=>p.page==='Writing').map(p=>this.card(p)),
+      workedWith:['KPMG','SoluteLabs','UID','Innerlabs','SourceIn','Pick A Book','Garma Garam','Figma','Maze','Lovable','n8n','Notion'],
+      socials:[{name:'LinkedIn',href:'https://www.linkedin.com/in/freya-thakkar/'},{name:'Medium',href:'https://medium.com/@freyaidesign'},{name:'Email',href:'mailto:freyaidesign@gmail.com'}],
+      darkIcon: s.dark?sun:moon,
+      onToggleDark:()=>this.setState(st=>({dark:!st.dark})),
+      noteToolOpen, stickyColors,
+      selBg, selIcon, noteBg, noteIcon, noteDot, shapeBg, shapeIcon,
+      onSelectTool:()=>this.setState({tool:'select'}),
+      onNoteTool:()=>this.setState(st=>({tool: st.tool==='note'?'select':'note'})),
+      onShapeTool:()=>this.setState(st=>({tool: st.tool==='shape'?'select':'shape'})),
+      collage,
+      items, canvasRef, canvasCursor: s.tool==='select'?'default':'crosshair',
+      zoomPct: Math.round(s.zoom*100)+' %',
+      onResetZoom:()=>this.setState({zoom:1, panX:0, panY:0}),
+      modal, modalOpen:!!modal,
+      stop:(e)=>{ if(e&&e.stopPropagation)e.stopPropagation(); },
+      noop:(e)=>{ if(e&&e.preventDefault)e.preventDefault(); },
+      panTransform:'translate('+s.panX+'px, '+s.panY+'px) scale('+s.zoom+')',
+      onCanvasDown:(e)=>{ if(e.button!==0) return; if(e.target.closest && e.target.closest('[data-nopan]')) return; if(s.tool==='note'||s.tool==='shape'){ this.placeItem(e); return; } this._deselectOnPan(); this._panning=true; this._sx=e.clientX; this._sy=e.clientY; this._px=s.panX; this._py=s.panY; }
+    };
+  }
+}
+</script>
+</body>
+</html>
