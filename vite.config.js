@@ -1,16 +1,15 @@
 import { defineConfig } from 'vite'
-import react from '@vitejs/plugin-react'
 
 export default defineConfig({
-  plugins: [react()],
-  server: {
-    middlewareMode: false,
-  },
+  root: 'public',
   build: {
-    outDir: 'dist',
+    outDir: '../dist',
+    emptyOutDir: true,
     rollupOptions: {
       input: 'public/index.html'
     }
   },
-  root: 'public'
+  server: {
+    middlewareMode: false,
+  }
 })
