@@ -5,7 +5,8 @@
   "type": "module",
   "scripts": {
     "dev": "vite",
-    "build": "vite build",
+    "build": "vite build && npm run postbuild",
+    "postbuild": "cp public/support.js dist/ && cp public/image-slot.js dist/ && cp public/.image-slots.state.json dist/ && cp -r public/design-assets dist/ && cp -r public/design-uploads dist/",
     "lint": "oxlint",
     "preview": "vite preview"
   },
