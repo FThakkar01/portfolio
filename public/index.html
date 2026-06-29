@@ -51,25 +51,25 @@ body{margin:0;background:#dcdcdc;}
 <div ref="{{rootRef}}" style="--canvas:#efefef;--panel:#ffffff;--bd:#e7e7e7;--text:#1a1a1a;--sub:#8a8a8a;--muted:#bcbcbc;--hover:#f4f4f4;--accent:#2d7ff9;--accentbg:#eaf2fe;--divider:#efefef;--slotbg:#f3f3f3;position:fixed;inset:0;background:var(--canvas);display:flex;gap:8px;padding:8px;font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',system-ui,sans-serif;color:var(--text);font-size:14px;-webkit-font-smoothing:antialiased;">
 
   <!-- ===================== MOBILE HAMBURGER + DRAWER ===================== -->
-  <div data-nopan="1" class="fig-hamburger" onclick="document.getElementById('mobile-drawer').style.display='flex';document.getElementById('mobile-overlay').style.display='block';">
+  <div data-nopan="1" class="fig-hamburger" onclick="{{onOpenMobile}}">
     <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="4" y1="7" x2="20" y2="7"></line><line x1="4" y1="12" x2="20" y2="12"></line><line x1="4" y1="17" x2="20" y2="17"></line></svg>
   </div>
   <sc-if value="{{mobileOpen}}" hint-placeholder-val="{{false}}">
-    <div id="mobile-overlay" data-nopan="1" class="fig-mdrawer-overlay" onclick="document.getElementById('mobile-drawer').style.display='none';document.getElementById('mobile-overlay').style.display='none';"></div>
-    <div id="mobile-drawer" data-nopan="1" class="fig-mdrawer" style="display:none;">
+    <div data-nopan="1" class="fig-mdrawer-overlay" onclick="{{onCloseMobile}}"></div>
+    <div data-nopan="1" class="fig-mdrawer">
       <div style="display:flex;align-items:center;justify-content:space-between;padding:18px 18px 14px;border-bottom:1px solid var(--divider);">
         <div>
           <div style="font-size:17px;font-weight:700;letter-spacing:-.01em;color:var(--text);">Freya Thakkar</div>
           <div style="font-size:13px;color:var(--sub);margin-top:1px;">Portfolio</div>
         </div>
-        <div onclick="document.getElementById('mobile-drawer').style.display='none';document.getElementById('mobile-overlay').style.display='none';" style="width:32px;height:32px;border-radius:8px;display:flex;align-items:center;justify-content:center;cursor:pointer;color:var(--text);">
+        <div onclick="{{onCloseMobile}}" style="width:32px;height:32px;border-radius:8px;display:flex;align-items:center;justify-content:center;cursor:pointer;color:var(--text);">
           <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="6" y1="6" x2="18" y2="18"></line><line x1="18" y1="6" x2="6" y2="18"></line></svg>
         </div>
       </div>
       <div style="flex:1;overflow-y:auto;padding:14px 12px 18px;">
         <div style="font-size:10.5px;font-weight:700;letter-spacing:.08em;color:var(--muted);padding:0 8px 8px;">PAGES</div>
         <sc-for list="{{pages}}" as="pg" hint-placeholder-count="5">
-          <div onclick="{{pg.onClick}};document.getElementById('mobile-drawer').style.display='none';document.getElementById('mobile-overlay').style.display='none';" style="display:flex;align-items:center;gap:9px;padding:9px 11px;border-radius:8px;cursor:pointer;font-size:14px;font-weight:{{pg.weight}};background:{{pg.bg}};color:{{pg.fg}};margin-bottom:2px;">
+          <div onclick="{{pg.onClickMobile}}" style="display:flex;align-items:center;gap:9px;padding:9px 11px;border-radius:8px;cursor:pointer;font-size:14px;font-weight:{{pg.weight}};background:{{pg.bg}};color:{{pg.fg}};margin-bottom:2px;">
             <span style="display:flex;"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path><polyline points="14 2 14 8 20 8"></polyline></svg></span>
             <span>{{pg.name}}</span>
           </div>
