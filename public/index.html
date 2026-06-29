@@ -491,7 +491,7 @@ body{margin:0;background:#dcdcdc;}
 </x-dc>
 <script type="text/x-dc" data-dc-script>
 class Component extends DCLogic {
-  state = { page:'About', dark:false, modalKey:null, tool:'select', stickyColor:'Yellow', layers:{About:true,Work:true,Playground:true,Writing:true}, panX:0, panY:0, zoom:1, items:[], selectedId:null, selSticker:null,
+  state = { page:'About', dark:false, modalKey:null, tool:'select', stickyColor:'Yellow', layers:{About:true,Work:true,Playground:true,Writing:true}, panX:0, panY:0, zoom:1, items:[], selectedId:null, selSticker:null, mobileOpen:false,
     collage:[
       {id:'sk-notebook',kind:'notebook',x:8,y:170,rot:-1.5},
       {id:'sk-persona',kind:'persona',x:58,y:476,rot:-5},
@@ -731,7 +731,8 @@ class Component extends DCLogic {
       name:n, weight: s.page===n?600:400,
       bg: s.page===n?'var(--accentbg)':'transparent',
       fg: s.page===n?'var(--accent)':'var(--text)',
-      onClick:()=>this.setState({page:n, panX:0, panY:0, sticky:false, modalKey:null})
+      onClick:()=>this.setState({page:n, panX:0, panY:0, sticky:false, modalKey:null}),
+      onClickMobile:()=>this.setState({page:n, panX:0, panY:0, sticky:false, modalKey:null, mobileOpen:false})
     }));
 
     const layerGroups = [
@@ -826,6 +827,9 @@ class Component extends DCLogic {
 
     return {
       rootRef:(el)=>{ this._root=el; },
+      mobileOpen: s.mobileOpen,
+      onOpenMobile:()=>this.setState({mobileOpen:true}),
+      onCloseMobile:()=>this.setState({mobileOpen:false}),
       pages, layerGroups,
       spiral:[0,0,0,0,0,0,0,0,0,0,0],
       isAbout:s.page==='About', isWork:s.page==='Work', isPlayground:s.page==='Playground', isBuilds:s.page==='Writing', isContact:s.page==='Contact',
