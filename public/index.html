@@ -672,6 +672,10 @@ class Component extends DCLogic {
       }
     };
     if(this._canvas) this._canvas.addEventListener('wheel', this._wheel, {passive:false});
+    this._pinchStart = (e)=>{ if(e.touches && e.touches.length===2){ e.preventDefault(); const t1=e.touches[0], t2=e.touches[1]; const dx=t2.clientX-t1.clientX, dy=t2.clientY-t1.clientY; this._pinchDist=Math.sqrt(dx*dx+dy*dy); this._pinchCx=(t1.clientX+t2.clientX)/2; this._pinchCy=(t1.clientY+t2.clientY)/2; } };
+    this._pinchMove = (e)=>{ if(e.touches && e.touches.length===2 && this._pinchDist){ e.preventDefault(); const t1=e.touches[0], t2=e.touches[1]; const dx=t2.clientX-t1.clientX, dy=t2.clientY-t1.clientY; const dist=Math.sqrt(dx*dx+dy*dy); const factor=dist/this._pinchDist; if(Math.abs(factor-1)>0.01){ const r=this._canvas.getBoundingClientRect(); const mx=this._pinchCx-r.left, my=this._pinchCy-r.top; this.zoomAt(mx, my, factor); this._pinchDist=dist; } } };
+    this._pinchEnd = (e)=>{ this._pinchDist=null; };
+    if(this._canvas){ this._canvas.addEventListener('touchstart', this._pinchStart, {passive:false}); this._canvas.addEventListener('touchmove', this._pinchMove, {passive:false}); this._canvas.addEventListener('touchend', this._pinchEnd); }
     this._key = (e)=>{
       if(e.key!=='Delete' && e.key!=='Backspace') return;
       if(document.activeElement && document.activeElement.isContentEditable) return;
@@ -685,7 +689,7 @@ class Component extends DCLogic {
     this.applyTheme();
   }
   componentDidUpdate(){ this.applyTheme(); }
-  componentWillUnmount(){ window.removeEventListener('mousemove', this._mv); window.removeEventListener('mouseup', this._up); window.removeEventListener('keydown', this._key); if(this._canvas) this._canvas.removeEventListener('wheel', this._wheel); }
+  componentWillUnmount(){ window.removeEventListener('mousemove', this._mv); window.removeEventListener('mouseup', this._up); window.removeEventListener('keydown', this._key); if(this._canvas){ this._canvas.removeEventListener('wheel', this._wheel); this._canvas.removeEventListener('touchstart', this._pinchStart); this._canvas.removeEventListener('touchmove', this._pinchMove); this._canvas.removeEventListener('touchend', this._pinchEnd); } }
 
   zoomAt(mx,my,factor){
     this.setState(st=>{
