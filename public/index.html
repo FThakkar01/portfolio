@@ -9,7 +9,6 @@
   window.dataLayer = window.dataLayer || [];
   function gtag(){dataLayer.push(arguments);}
   gtag('js', new Date());
-
   gtag('config', 'G-NGXVR8GN60');
 </script>
 <script src="/support.js"></script>
@@ -26,69 +25,69 @@ body{margin:0;background:#dcdcdc;}
 ::-webkit-scrollbar{width:9px;height:9px;}
 ::-webkit-scrollbar-thumb{background:rgba(130,130,130,.45);border-radius:6px;}
 ::-webkit-scrollbar-track{background:transparent;}
-
-/* Canvas touch support */
-[data-canvas="1"]{touch-action:none;}
-
-/* MOBILE HAMBURGER & DRAWER */
 .fig-sidebar-trigger{display:none;}
 .fig-hamburger{display:none;position:fixed;top:14px;left:14px;z-index:90;width:42px;height:42px;border-radius:11px;background:#fff;border:1px solid #e7e7e7;box-shadow:0 6px 18px rgba(0,0,0,.12);align-items:center;justify-content:center;cursor:pointer;color:#1a1a1a;}
 .fig-mdrawer-overlay{position:fixed;inset:0;background:rgba(20,20,20,.4);z-index:88;}
 .fig-mdrawer{position:fixed;top:0;left:0;bottom:0;width:288px;max-width:86vw;background:#fff;z-index:89;display:flex;flex-direction:column;overflow:hidden;box-shadow:0 12px 30px rgba(0,0,0,.25);}
-
-@media (max-width: 1100px){ #right-panel{display:none !important;} }
+@media (max-width: 1100px){ .fig-side-right{display:none !important;} }
 @media (max-width: 820px){
-  #sidebar{display:none !important;}
+  .fig-side-left{display:none !important;}
   .fig-hamburger{display:flex;}
-  [data-canvas="1"]{width:100%;}
-  [style*="position:absolute;left:50%;top:50%"]{width:90vw!important;}
-  [style*="width:900px"]{width:90vw!important;height:auto;}
-  [style*="width:880px"]{width:90vw!important;flex-direction:column!important;}
-  [style*="width:920px"]{width:90vw!important;}
-  [style*="width:840px"]{width:90vw!important;height:auto;}
+  .fig-work-grid, .fig-writing-grid{grid-template-columns:1fr !important;}
+  .fig-worked-with{grid-template-columns:repeat(3,1fr) !important;}
+  .fig-work-inner, .fig-writing-inner{width:100% !important;padding-left:20px !important;padding-right:20px !important;}
+  .fig-contact{width:calc(100% - 32px) !important;flex-direction:column !important;gap:28px !important;left:16px !important;transform:translateY(-50%) !important;}
+  .fig-root{padding:6px !important;gap:6px !important;}
 }
 @media (max-width: 520px){
-  [style*="position:absolute;left:50%;top:50%"]{width:95vw!important;}
-  [style*="width:900px"]{width:95vw!important;}
-  [style*="width:880px"]{width:95vw!important;}
-  [style*="width:920px"]{width:95vw!important;}
-  [style*="width:840px"]{width:95vw!important;}
+  .fig-worked-with{grid-template-columns:repeat(2,1fr) !important;}
+  .fig-modal{padding:8px !important;}
+  .fig-modal-body{padding:18px 18px 24px !important;}
 }
 </style>
 </helmet>
 
-<div ref="{{rootRef}}" style="--canvas:#efefef;--panel:#ffffff;--bd:#e7e7e7;--text:#1a1a1a;--sub:#8a8a8a;--muted:#bcbcbc;--hover:#f4f4f4;--accent:#2d7ff9;--accentbg:#eaf2fe;--divider:#efefef;--slotbg:#f3f3f3;position:fixed;inset:0;background:var(--canvas);display:flex;gap:8px;padding:8px;font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',system-ui,sans-serif;color:var(--text);font-size:14px;-webkit-font-smoothing:antialiased;">
+<div ref="{{rootRef}}" class="fig-root" style="--canvas:#efefef;--panel:#ffffff;--bd:#e7e7e7;--text:#1a1a1a;--sub:#8a8a8a;--muted:#bcbcbc;--hover:#f4f4f4;--accent:#2d7ff9;--accentbg:#eaf2fe;--divider:#efefef;--slotbg:#f3f3f3;position:fixed;inset:0;background:var(--canvas);display:flex;gap:8px;padding:8px;font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',system-ui,sans-serif;color:var(--text);font-size:14px;-webkit-font-smoothing:antialiased;">
 
   <!-- ===================== MOBILE HAMBURGER + DRAWER ===================== -->
-  <div data-nopan="1" class="fig-hamburger" onclick="{{onOpenMobile}}">
+  <div data-nopan="1" class="fig-hamburger" onClick="{{onOpenMobile}}">
     <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="4" y1="7" x2="20" y2="7"></line><line x1="4" y1="12" x2="20" y2="12"></line><line x1="4" y1="17" x2="20" y2="17"></line></svg>
   </div>
   <sc-if value="{{mobileOpen}}" hint-placeholder-val="{{false}}">
-    <div data-nopan="1" class="fig-mdrawer-overlay" onclick="{{onCloseMobile}}"></div>
+    <div data-nopan="1" class="fig-mdrawer-overlay" onClick="{{onCloseMobile}}"></div>
     <div data-nopan="1" class="fig-mdrawer">
       <div style="display:flex;align-items:center;justify-content:space-between;padding:18px 18px 14px;border-bottom:1px solid var(--divider);">
         <div>
           <div style="font-size:17px;font-weight:700;letter-spacing:-.01em;color:var(--text);">Freya Thakkar</div>
           <div style="font-size:13px;color:var(--sub);margin-top:1px;">Portfolio</div>
         </div>
-        <div onclick="{{onCloseMobile}}" style="width:32px;height:32px;border-radius:8px;display:flex;align-items:center;justify-content:center;cursor:pointer;color:var(--text);">
-          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="6" y1="6" x2="18" y2="18"></line><line x1="18" y1="6" x2="6" y2="18"></line></svg>
-        </div>
+        <div onClick="{{onCloseMobile}}" style="width:32px;height:32px;border-radius:8px;display:flex;align-items:center;justify-content:center;cursor:pointer;color:var(--text);"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="6" y1="6" x2="18" y2="18"></line><line x1="18" y1="6" x2="6" y2="18"></line></svg></div>
       </div>
       <div style="flex:1;overflow-y:auto;padding:14px 12px 18px;">
         <div style="font-size:10.5px;font-weight:700;letter-spacing:.08em;color:var(--muted);padding:0 8px 8px;">PAGES</div>
         <sc-for list="{{pages}}" as="pg" hint-placeholder-count="5">
-          <div onclick="{{pg.onClickMobile}}" style="display:flex;align-items:center;gap:9px;padding:9px 11px;border-radius:8px;cursor:pointer;font-size:14px;font-weight:{{pg.weight}};background:{{pg.bg}};color:{{pg.fg}};margin-bottom:2px;">
+          <div onClick="{{pg.onClickMobile}}" style="display:flex;align-items:center;gap:9px;padding:9px 11px;border-radius:8px;cursor:pointer;font-size:14px;font-weight:{{pg.weight}};background:{{pg.bg}};color:{{pg.fg}};margin-bottom:2px;">
             <span style="display:flex;"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path><polyline points="14 2 14 8 20 8"></polyline></svg></span>
             <span>{{pg.name}}</span>
           </div>
         </sc-for>
+        <div style="font-size:10.5px;font-weight:700;letter-spacing:.08em;color:var(--muted);padding:18px 8px 6px;">SOCIALS</div>
+        <sc-for list="{{socials}}" as="so" hint-placeholder-count="3">
+          <a href="{{so.href}}" target="_blank" rel="noopener" style="display:flex;align-items:center;justify-content:space-between;padding:11px;border-radius:8px;text-decoration:none;color:var(--text);font-size:14px;">
+            <span>{{so.name}}</span>
+            <span style="display:flex;color:var(--muted);"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9"><line x1="7" y1="17" x2="17" y2="7"></line><polyline points="8 7 17 7 17 16"></polyline></svg></span>
+          </a>
+        </sc-for>
+      </div>
+      <div style="padding:14px 16px;border-top:1px solid var(--divider);display:flex;align-items:center;gap:10px;">
+        <div onClick="{{onToggleDark}}" style="width:38px;height:38px;border-radius:9px;background:var(--hover);display:flex;align-items:center;justify-content:center;cursor:pointer;color:var(--text);">{{darkIcon}}</div>
+        <a href="mailto:freyaidesign@gmail.com" style="flex:1;text-align:center;background:var(--accent);color:#fff;font-size:14px;font-weight:600;padding:10px 14px;border-radius:10px;text-decoration:none;">Say hii</a>
       </div>
     </div>
   </sc-if>
 
   <!-- ===================== LEFT SIDEBAR ===================== -->
-  <div id="sidebar" data-nopan="1" style="width:298px;flex-shrink:0;background:var(--panel);border:1px solid var(--bd);border-radius:14px;display:flex;flex-direction:column;overflow:hidden;">
+  <div data-nopan="1" class="fig-side-left" style="width:298px;flex-shrink:0;background:var(--panel);border:1px solid var(--bd);border-radius:14px;display:flex;flex-direction:column;overflow:hidden;">
     <div style="padding:18px 20px 14px;">
       <div style="font-size:17px;font-weight:700;letter-spacing:-.01em;">Freya Thakkar</div>
       <div style="font-size:13.5px;color:var(--sub);margin-top:1px;">Portfolio</div>
@@ -264,7 +263,7 @@ body{margin:0;background:#dcdcdc;}
           </sc-for>
 
           <!-- intro text -->
-          <div data-nopan="1" style="position: absolute; left: 288px; top: 600px; width: 360px; font-size: 16.5px; line-height: 1.55; color: var(--text)">Hi, I'm Freya Thakkar, an experience designer focused on empowering users with intelligent copilots and ensuring user control in autonomous, automation-based systems. <a href="#" onClick="{{noop}}" style="color:var(--accent);text-decoration:none;">More</a></div>
+          <div data-nopan="1" style="position: absolute; left: 288px; top: 600px; width: 360px; font-size: 16.5px; line-height: 1.55; color: var(--text)">Hi, I'm Freya Thakkar, an experience designer focused on empowering users with intelligent copilots and ensuring user control in autonomous, automation-based systems.</div>
           <div style="position: absolute; left: 288px; top: 712px; width: 280px; font-family: 'Caveat',cursive; font-size: 17px; color: #a8a8a8; line-height: 1.25">yep, this is not figma feel free to explore however you like :)</div>
         <svg width="66" height="78" viewBox="0 0 66 78" style="position: absolute; left: 67px; top: 81px" fill="none" stroke="#b6b6b6" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M54 6 C34 20 18 42 14 70"></path><path d="M4 54 L14 72 L30 63"></path></svg></div>
       </sc-if>
@@ -272,11 +271,11 @@ body{margin:0;background:#dcdcdc;}
       <!-- WORK -->
       <sc-if value="{{isWork}}" hint-placeholder-val="{{true}}">
         <div style="position:absolute;inset:0;display:flex;justify-content:center;">
-          <div style="width:920px;padding:46px 10px 140px;">
+          <div class="fig-work-inner" style="width:920px;padding:46px 10px 140px;">
             <div style="text-align:center;font-size:15px;font-weight:600;margin-bottom:24px;">Worked With</div>
-            <div style="display:grid;grid-template-columns:repeat(4,1fr);gap:24px 32px;justify-items:center;align-items:center;margin:0 auto 52px;max-width:720px;">
+            <div class="fig-worked-with" style="display:grid;grid-template-columns:repeat(4,1fr);gap:24px 32px;justify-items:center;align-items:center;margin:0 auto 52px;max-width:720px;">
               <sc-for list="{{workedWith}}" as="w" hint-placeholder-count="12"><span style="font-size:16px;font-weight:800;color:var(--muted);letter-spacing:.01em;">{{w}}</span></sc-for>
-            </div><div style="display: grid; grid-template-columns: repeat(2,1fr); gap: 44px 32px;">
+            </div><div class="fig-work-grid" style="display: grid; grid-template-columns: repeat(2,1fr); gap: 44px 32px;">
               <sc-for list="{{workCards}}" as="c" hint-placeholder-count="6">
                 <div data-nopan="1" onClick="{{c.onOpen}}" style="cursor:pointer;display:flex;flex-direction:column;">
                   {{c.previewEl}}
@@ -296,8 +295,8 @@ body{margin:0;background:#dcdcdc;}
       <!-- BUILDS -->
       <sc-if value="{{isBuilds}}" hint-placeholder-val="{{true}}">
         <div style="position:absolute;inset:0;display:flex;justify-content:center;">
-          <div style="width:920px;padding:56px 10px 140px;">
-            <div style="display:grid;grid-template-columns:repeat(2,1fr);gap:44px 32px;">
+          <div class="fig-writing-inner" style="width:920px;padding:56px 10px 140px;">
+            <div class="fig-writing-grid" style="display:grid;grid-template-columns:repeat(2,1fr);gap:44px 32px;">
               <sc-for list="{{buildCards}}" as="c" hint-placeholder-count="4">
                 <div data-nopan="1" onClick="{{c.onOpen}}" style="cursor:pointer;display:flex;flex-direction:column;">
                   {{c.previewEl}}
@@ -341,7 +340,7 @@ body{margin:0;background:#dcdcdc;}
 
       <!-- CONTACT -->
       <sc-if value="{{isContact}}" hint-placeholder-val="{{false}}">
-        <div style="position:absolute;left:50%;top:50%;transform:translate(-50%,-50%);width:880px;display:flex;gap:48px;align-items:flex-start;">
+        <div class="fig-contact" style="position:absolute;left:50%;top:50%;transform:translate(-50%,-50%);width:880px;display:flex;gap:48px;align-items:flex-start;">
           <div data-nopan="1" style="flex:1;min-width:0;">
             <div style="font-size:11px;font-weight:700;letter-spacing:.14em;color:var(--muted);margin-bottom:14px;">GET IN TOUCH</div>
             <div style="font-size:38px;font-weight:600;line-height:1.1;letter-spacing:-.02em;margin-bottom:18px;color:var(--text);">Let's make<br>something good.</div>
@@ -358,10 +357,6 @@ body{margin:0;background:#dcdcdc;}
               <a href="https://medium.com/@freyaidesign" target="_blank" rel="noopener" style="display:flex;align-items:center;gap:11px;color:var(--text);text-decoration:none;">
                 <span style="width:32px;height:32px;border-radius:8px;background:var(--hover);display:flex;align-items:center;justify-content:center;color:var(--sub);"><svg width="15" height="15" viewBox="0 0 24 24" fill="currentColor"><ellipse cx="6.5" cy="12" rx="5" ry="6"></ellipse><ellipse cx="16" cy="12" rx="2.2" ry="6"></ellipse><ellipse cx="21" cy="12" rx="1.2" ry="5.5"></ellipse></svg></span>
                 <span>medium.com/@freyaidesign</span>
-              </a>
-              <a href="https://drive.google.com/file/d/10G7LcH4_WC9Ru6gcxD1lKObaSHbHcHYg/view" target="_blank" rel="noopener" style="display:flex;align-items:center;gap:11px;color:var(--text);text-decoration:none;">
-                <span style="width:32px;height:32px;border-radius:8px;background:var(--hover);display:flex;align-items:center;justify-content:center;color:var(--sub);"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M13 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V9z"></path><polyline points="13 2 13 9 20 9"></polyline></svg></span>
-                <span>Download Resume</span>
               </a>
             </div>
           </div>
@@ -421,13 +416,12 @@ body{margin:0;background:#dcdcdc;}
         <div onClick="{{onSelectTool}}" style="width:40px;height:38px;border-radius:9px;background:{{selBg}};display:flex;align-items:center;justify-content:center;cursor:pointer;"><svg width="19" height="19" viewBox="0 0 24 24" fill="{{selIcon}}"><path d="M3 11l18-8-8 18-2-7-8-3z"></path></svg></div>
         <div onClick="{{onNoteTool}}" style="position:relative;width:40px;height:38px;border-radius:9px;background:{{noteBg}};display:flex;align-items:center;justify-content:center;cursor:pointer;color:{{noteIcon}};"><svg width="19" height="19" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7"><path d="M4 4h16v11l-5 5H4z"></path><path d="M20 15h-5v5"></path></svg><span style="position:absolute;right:6px;bottom:5px;width:7px;height:7px;border-radius:50%;background:#2d7ff9;display:{{noteDot}};border:1.5px solid var(--panel);"></span></div>
         <div onClick="{{onShapeTool}}" style="width:40px;height:38px;border-radius:9px;background:{{shapeBg}};display:flex;align-items:center;justify-content:center;cursor:pointer;color:{{shapeIcon}};"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7"><rect x="4" y="4" width="16" height="16" rx="2.5"></rect></svg></div>
-        <div style="display:flex;align-items:center;justify-content:center;width:20px;cursor:pointer;color:var(--muted);"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><polyline points="6 9 12 15 18 9"></polyline></svg></div>
       </div>
     </div>
   </div>
 
   <!-- ===================== RIGHT PANEL ===================== -->
-  <div id="right-panel" data-nopan="1" style="width:298px;flex-shrink:0;background:var(--panel);border:1px solid var(--bd);border-radius:14px;display:flex;flex-direction:column;overflow:hidden;">
+  <div data-nopan="1" class="fig-side-right" style="width:298px;flex-shrink:0;background:var(--panel);border:1px solid var(--bd);border-radius:14px;display:flex;flex-direction:column;overflow:hidden;">
     <div style="display:flex;align-items:center;gap:10px;padding:14px 16px;border-bottom:1px solid var(--divider);">
       <image-slot id="rp-avatar" style="width:34px;height:34px;flex-shrink:0;" shape="circle" placeholder=""></image-slot>
       <div style="flex:1;"></div>
@@ -461,37 +455,136 @@ body{margin:0;background:#dcdcdc;}
 
   <!-- ===================== MODAL ===================== -->
   <sc-if value="{{modalOpen}}" hint-placeholder-val="{{false}}">
-    <div onClick="{{modal.onClose}}" style="position:fixed;inset:0;background:rgba(20,20,20,.32);display:flex;align-items:center;justify-content:center;z-index:80;padding:24px;">
-      <div onClick="{{stop}}" style="width:720px;max-width:100%;max-height:90vh;background:var(--panel);border-radius:16px;box-shadow:0 24px 70px rgba(0,0,0,.4);display:flex;flex-direction:column;overflow:hidden;">
-        <div style="display:flex;align-items:center;padding:14px 18px;border-bottom:1px solid var(--divider);">
+    <div onClick="{{modal.onClose}}" style="position:fixed;inset:0;background:rgba(15,15,18,.55);display:flex;align-items:center;justify-content:center;z-index:80;padding:24px;backdrop-filter:blur(4px);">
+      <div onClick="{{stop}}" style="width:940px;max-width:100%;max-height:92vh;background:var(--panel);border-radius:18px;box-shadow:0 32px 80px rgba(0,0,0,.45);display:flex;flex-direction:column;overflow:hidden;">
+        <!-- top bar -->
+        <div style="display:flex;align-items:center;padding:12px 16px;border-bottom:1px solid var(--divider);flex-shrink:0;">
           <div style="display:flex;gap:4px;">
-            <div onClick="{{modal.onPrev}}" style="width:32px;height:32px;border-radius:8px;display:flex;align-items:center;justify-content:center;cursor:pointer;color:var(--text);"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="15 18 9 12 15 6"></polyline></svg></div>
-            <div onClick="{{modal.onNext}}" style="width:32px;height:32px;border-radius:8px;display:flex;align-items:center;justify-content:center;cursor:pointer;color:var(--text);"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="9 18 15 12 9 6"></polyline></svg></div>
+            <div onClick="{{modal.onPrev}}" title="Previous project" style="width:32px;height:32px;border-radius:8px;display:flex;align-items:center;justify-content:center;cursor:pointer;color:var(--text);"><svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="15 18 9 12 15 6"></polyline></svg></div>
+            <div onClick="{{modal.onNext}}" title="Next project" style="width:32px;height:32px;border-radius:8px;display:flex;align-items:center;justify-content:center;cursor:pointer;color:var(--text);"><svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="9 18 15 12 9 6"></polyline></svg></div>
           </div>
-          <div style="flex:1;text-align:center;font-size:14px;font-weight:500;">{{modal.name}}</div>
-          <div onClick="{{modal.onClose}}" style="width:32px;height:32px;border-radius:8px;display:flex;align-items:center;justify-content:center;cursor:pointer;color:var(--text);"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="6" y1="6" x2="18" y2="18"></line><line x1="18" y1="6" x2="6" y2="18"></line></svg></div>
+          <div style="flex:1;text-align:center;font-size:12.5px;letter-spacing:.08em;text-transform:uppercase;color:var(--sub);">{{modal.indexLabel}} \u00b7 Case Study</div>
+          <div onClick="{{modal.onClose}}" style="width:32px;height:32px;border-radius:8px;display:flex;align-items:center;justify-content:center;cursor:pointer;color:var(--text);"><svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="6" y1="6" x2="18" y2="18"></line><line x1="18" y1="6" x2="6" y2="18"></line></svg></div>
         </div>
-        <div style="overflow-y:auto;padding:30px 34px 40px;">
-          <div style="width:54px;height:54px;border-radius:13px;background:{{modal.logo}};display:flex;align-items:center;justify-content:center;margin-bottom:18px;"><svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="1.8"><rect x="3" y="3" width="18" height="18" rx="4"></rect><circle cx="15.5" cy="15.5" r="2.2" fill="#fff" stroke="none"></circle></svg></div>
-          <div style="font-size:21px;font-weight:600;margin-bottom:10px;">{{modal.name}}</div>
-          <div style="font-size:15px;line-height:1.55;color:var(--sub);margin-bottom:18px;max-width:560px;">{{modal.desc}}</div>
-          <a href="{{modal.ctaHref}}" target="{{modal.ctaTarget}}" onClick="{{modal.ctaOnClick}}" rel="noopener" style="display:inline-flex;align-items:center;gap:6px;background:var(--hover);border:1px solid var(--bd);color:var(--text);font-size:13px;padding:7px 14px;border-radius:9px;text-decoration:none;cursor:pointer;">{{modal.ctaLabel}} <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9"><line x1="7" y1="17" x2="17" y2="7"></line><polyline points="8 7 17 7 17 16"></polyline></svg></a>
-          <div style="border-top:1px solid var(--divider);margin:26px 0;"></div>
-          <div style="display:flex;gap:46px;margin-bottom:28px;flex-wrap:wrap;">
-            <div><div style="font-size:10.5px;font-weight:700;letter-spacing:.08em;color:var(--muted);margin-bottom:6px;">ROLE</div><div style="font-size:14px;">{{modal.role}}</div></div>
-            <div><div style="font-size:10.5px;font-weight:700;letter-spacing:.08em;color:var(--muted);margin-bottom:6px;">TIMELINE</div><div style="font-size:14px;">{{modal.timeline}}</div></div>
-            <div style="max-width:240px;"><div style="font-size:10.5px;font-weight:700;letter-spacing:.08em;color:var(--muted);margin-bottom:6px;">TEAM</div><div style="font-size:14px;">{{modal.team}}</div></div>
-          </div>
-          <div style="font-size:16px;font-weight:600;margin-bottom:9px;">Problem</div>
-          <div style="font-size:15px;line-height:1.55;color:var(--sub);margin-bottom:24px;max-width:580px;">{{modal.problem}}</div>
-          <sc-if value="{{modal.hasSolution}}" hint-placeholder-val="{{false}}">
-            <div style="font-size:16px;font-weight:600;margin-bottom:9px;">Solution</div>
-            <div style="font-size:15px;line-height:1.55;color:var(--sub);margin-bottom:28px;max-width:580px;">{{modal.solution}}</div>
+
+        <div ref="{{modal.scrollRef}}" style="overflow-y:auto;">
+          <!-- HERO -->
+          <sc-if value="{{modal.hasHero}}" hint-placeholder-val="{{false}}">
+            <div style="position:relative;width:100%;aspect-ratio:21/9;background:var(--slotbg);border-bottom:1px solid var(--divider);overflow:hidden;cursor:zoom-in;" onClick="{{modal.onHeroZoom}}">
+              {{modal.heroEl}}
+            </div>
           </sc-if>
-          <div style="display:flex;flex-direction:column;gap:18px;">
-            <sc-for list="{{modal.gallery}}" as="im" hint-placeholder-count="4">{{im.el}}</sc-for>
+
+          <div style="padding:40px 56px 48px;max-width:880px;margin:0 auto;">
+            <!-- TITLE BLOCK -->
+            <div style="display:flex;flex-wrap:wrap;gap:8px;margin-bottom:14px;">
+              <sc-for list="{{modal.tags}}" as="tg" hint-placeholder-count="2"><span style="font-size:11px;padding:4px 10px;border-radius:20px;background:{{tg.bg}};color:{{tg.fg}};font-weight:500;letter-spacing:.01em;">{{tg.label}}</span></sc-for>
+            </div>
+            <div style="font-size:34px;font-weight:600;letter-spacing:-.02em;line-height:1.1;margin-bottom:14px;color:var(--text);">{{modal.name}}</div>
+            <div style="font-size:17px;line-height:1.55;color:var(--sub);margin-bottom:24px;max-width:680px;">{{modal.desc}}</div>
+            <a href="{{modal.ctaHref}}" target="{{modal.ctaTarget}}" onClick="{{modal.ctaOnClick}}" rel="noopener" style="display:inline-flex;align-items:center;gap:7px;background:var(--text);color:var(--panel);font-size:13.5px;font-weight:500;padding:10px 18px;border-radius:10px;text-decoration:none;cursor:pointer;">{{modal.ctaLabel}} <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="7" y1="17" x2="17" y2="7"></line><polyline points="8 7 17 7 17 16"></polyline></svg></a>
+
+            <!-- META STRIP -->
+            <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(180px,1fr));gap:1px;margin:36px 0 44px;background:var(--bd);border:1px solid var(--bd);border-radius:14px;overflow:hidden;">
+              <div style="padding:18px 20px;background:var(--panel);">
+                <div style="font-size:10.5px;font-weight:700;letter-spacing:.1em;color:var(--muted);margin-bottom:8px;">ROLE</div>
+                <div style="font-size:14px;line-height:1.4;color:var(--text);">{{modal.role}}</div>
+              </div>
+              <div style="padding:18px 20px;background:var(--panel);">
+                <div style="font-size:10.5px;font-weight:700;letter-spacing:.1em;color:var(--muted);margin-bottom:8px;">TIMELINE</div>
+                <div style="font-size:14px;line-height:1.4;color:var(--text);">{{modal.timeline}}</div>
+              </div>
+              <div style="padding:18px 20px;background:var(--panel);">
+                <div style="font-size:10.5px;font-weight:700;letter-spacing:.1em;color:var(--muted);margin-bottom:8px;">TEAM</div>
+                <div style="font-size:14px;line-height:1.4;color:var(--text);">{{modal.team}}</div>
+              </div>
+            </div>
+
+            <!-- PROBLEM -->
+            <div style="display:flex;gap:18px;align-items:baseline;margin-bottom:14px;">
+              <span style="font-size:12px;font-weight:700;letter-spacing:.12em;color:var(--accent);font-variant-numeric:tabular-nums;">01</span>
+              <div style="flex:1;font-size:24px;font-weight:600;letter-spacing:-.01em;color:var(--text);">The Problem</div>
+            </div>
+            <div style="font-size:16px;line-height:1.65;color:var(--sub);margin:0 0 36px 30px;max-width:680px;">{{modal.problem}}</div>
+
+            <!-- SOLUTION -->
+            <sc-if value="{{modal.hasSolution}}" hint-placeholder-val="{{false}}">
+              <div style="display:flex;gap:18px;align-items:baseline;margin-bottom:14px;">
+                <span style="font-size:12px;font-weight:700;letter-spacing:.12em;color:var(--accent);font-variant-numeric:tabular-nums;">02</span>
+                <div style="flex:1;font-size:24px;font-weight:600;letter-spacing:-.01em;color:var(--text);">The Solution</div>
+              </div>
+              <div style="font-size:16px;line-height:1.65;color:var(--sub);margin:0 0 40px 30px;max-width:680px;">{{modal.solution}}</div>
+            </sc-if>
+
+            <!-- DYNAMIC SECTIONS -->
+            <sc-for list="{{modal.sections}}" as="sec" hint-placeholder-count="0">
+              <div style="display:flex;gap:18px;align-items:baseline;margin-bottom:14px;">
+                <span style="font-size:12px;font-weight:700;letter-spacing:.12em;color:var(--accent);font-variant-numeric:tabular-nums;">{{sec.num}}</span>
+                <div style="flex:1;font-size:24px;font-weight:600;letter-spacing:-.01em;color:var(--text);">{{sec.title}}</div>
+              </div>
+              <sc-if value="{{sec.hasBody}}" hint-placeholder-val="{{false}}">
+                <div style="font-size:16px;line-height:1.65;color:var(--sub);margin:0 0 18px 30px;max-width:680px;white-space:pre-line;">{{sec.body}}</div>
+              </sc-if>
+              <sc-if value="{{sec.hasBullets}}" hint-placeholder-val="{{false}}">
+                <ul style="list-style:none;margin:0 0 28px 30px;padding:0;max-width:680px;">
+                  <sc-for list="{{sec.bullets}}" as="b" hint-placeholder-count="3">
+                    <li style="position:relative;padding-left:22px;font-size:15.5px;line-height:1.65;color:var(--sub);margin-bottom:10px;">
+                      <span style="position:absolute;left:0;top:11px;width:8px;height:1.5px;background:var(--accent);border-radius:1px;"></span>{{b.text}}
+                    </li>
+                  </sc-for>
+                </ul>
+              </sc-if>
+              <sc-if value="{{sec.hasMetrics}}" hint-placeholder-val="{{false}}">
+                <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));gap:12px;margin:0 0 36px 30px;max-width:680px;">
+                  <sc-for list="{{sec.metrics}}" as="m" hint-placeholder-count="3">
+                    <div style="border:1px solid var(--bd);border-radius:12px;padding:16px 16px 14px;background:var(--canvas);">
+                      <div style="font-size:26px;font-weight:600;letter-spacing:-.02em;color:var(--text);line-height:1.05;">{{m.value}}</div>
+                      <div style="font-size:12px;color:var(--sub);margin-top:8px;line-height:1.4;">{{m.label}}</div>
+                    </div>
+                  </sc-for>
+                </div>
+              </sc-if>
+              <sc-if value="{{sec.hasNoExtras}}" hint-placeholder-val="{{false}}">
+                <div style="margin-bottom:32px;"></div>
+              </sc-if>
+            </sc-for>
+
+            <!-- GALLERY -->
+            <sc-if value="{{modal.hasGallery}}" hint-placeholder-val="{{false}}">
+              <div style="display:flex;gap:18px;align-items:baseline;margin:8px 0 18px;">
+                <span style="font-size:12px;font-weight:700;letter-spacing:.12em;color:var(--accent);font-variant-numeric:tabular-nums;">{{modal.galleryNum}}</span>
+                <div style="flex:1;font-size:24px;font-weight:600;letter-spacing:-.01em;color:var(--text);">Selected Screens</div>
+              </div>
+              <div style="display:flex;flex-direction:column;gap:18px;margin:0 0 8px 30px;">
+                <sc-for list="{{modal.gallery}}" as="im" hint-placeholder-count="4">
+                  <div style="border:1px solid var(--bd);border-radius:14px;overflow:hidden;background:var(--canvas);">{{im.el}}</div>
+                </sc-for>
+              </div>
+            </sc-if>
+
+            <!-- footer prev/next -->
+            <div style="display:flex;justify-content:space-between;gap:16px;margin-top:48px;padding-top:24px;border-top:1px solid var(--divider);">
+              <div onClick="{{modal.onPrev}}" style="display:flex;align-items:center;gap:10px;cursor:pointer;color:var(--text);">
+                <span style="width:32px;height:32px;border-radius:50%;border:1px solid var(--bd);display:flex;align-items:center;justify-content:center;"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="15 18 9 12 15 6"></polyline></svg></span>
+                <span><span style="display:block;font-size:11px;color:var(--muted);letter-spacing:.08em;">PREVIOUS</span><span style="font-size:14px;font-weight:500;">{{modal.prevName}}</span></span>
+              </div>
+              <div onClick="{{modal.onNext}}" style="display:flex;align-items:center;gap:10px;cursor:pointer;color:var(--text);text-align:right;">
+                <span style="display:block;"><span style="display:block;font-size:11px;color:var(--muted);letter-spacing:.08em;">NEXT</span><span style="font-size:14px;font-weight:500;">{{modal.nextName}}</span></span>
+                <span style="width:32px;height:32px;border-radius:50%;border:1px solid var(--bd);display:flex;align-items:center;justify-content:center;"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="9 18 15 12 9 6"></polyline></svg></span>
+              </div>
+            </div>
           </div>
         </div>
+      </div>
+    </div>
+  </sc-if>
+
+  <!-- ===================== LIGHTBOX ===================== -->
+  <sc-if value="{{lightboxOpen}}" hint-placeholder-val="{{false}}">
+    <div data-nopan="1" onClick="{{onCloseLightbox}}" style="position:fixed;inset:0;background:rgba(10,10,10,.88);display:flex;align-items:center;justify-content:center;z-index:120;padding:32px;cursor:zoom-out;">
+      {{lightboxEl}}
+      <div onClick="{{onCloseLightbox}}" style="position:absolute;top:18px;right:22px;width:42px;height:42px;border-radius:50%;background:rgba(255,255,255,.12);color:#fff;display:flex;align-items:center;justify-content:center;cursor:pointer;backdrop-filter:blur(8px);">
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="6" y1="6" x2="18" y2="18"></line><line x1="18" y1="6" x2="6" y2="18"></line></svg>
       </div>
     </div>
   </sc-if>
@@ -500,7 +593,7 @@ body{margin:0;background:#dcdcdc;}
 </x-dc>
 <script type="text/x-dc" data-dc-script>
 class Component extends DCLogic {
-  state = { page:'About', dark:false, modalKey:null, tool:'select', stickyColor:'Yellow', layers:{About:true,Work:true,Playground:true,Writing:true}, panX:0, panY:0, zoom:1, items:[], selectedId:null, selSticker:null, mobileOpen:false,
+  state = { page:'About', dark:false, modalKey:null, mobileOpen:false, tool:'select', stickyColor:'Yellow', layers:{About:true,Work:true,Playground:true,Writing:true}, panX:0, panY:0, zoom:1, items:[], selectedId:null, selSticker:null, lightbox:null,
     collage:[
       {id:'sk-notebook',kind:'notebook',x:8,y:170,rot:-1.5},
       {id:'sk-persona',kind:'persona',x:58,y:476,rot:-5},
@@ -516,75 +609,109 @@ class Component extends DCLogic {
 
   fcdn(h){ return 'https://framerusercontent.com/images/'+h; }
   projects = [
-    { key:'pickabook', page:'Work', name:'Pick A Book', logo:'#c2410c',
-      short:'Reimagining how Indian public libraries serve their communities \u2014 a book-hold service that connects every branch.',
-      desc:'A service-design project reimagining public libraries in India through "Pick A Book," a book-hold portal linked to the e-Granthalaya system.',
-      tags:[['UX Design','b'],['User Research','g'],['Service Design','o']],
-      role:'UX Designer \u00b7 User Researcher',
-      timeline:'Sept 2024 \u2013 Nov 2024',
-      team:['Freya Thakkar','Vritti Dagalia','Yashvi Kamdar','Vanshika Maheshwari'],
-      link:'https://freyathakkar.in/pick-a-book',
-      problem:'Public libraries in India face declining relevance and engagement due to outdated information & systems. Despite their potential as community knowledge hubs, libraries struggle to cater to modern users who seek convenience, accessibility, and efficient resource management.',
-      solution:'Users borrow books online through "Pick A Book," a portal linked to the e-Granthalaya library system. After requesting a book, a pickup slip is sent to the lending library; the book is delivered to the user\u2019s chosen branch, then returned to a dropbox at any convenient library.',
-      preview:'/design-assets/pab-dashboard-home.png',
-      gallery:[
-        '/design-assets/pab-dashboard-home.png',
-        '/design-assets/pab-dashboard-books.png',
-        '/design-assets/pab-dashboard-accounts.png',
-        '/design-assets/pab-system-arch.webp',
-        'https://framerusercontent.com/images/mFjJoqKh0ZhyMZb1ByVYanYemEw.png',
-        'https://framerusercontent.com/images/WRXzqiQ1Pib1m1GbaDkXj7xPJc.png',
-      ] },
-    { key:'garmagaram', page:'Work', name:'Garma Garam', logo:'#e11d48',
-      short:'Bringing the taste of home to your fingertips \u2014 a hyperlocal app delivering authentic home-cooked meals.',
-      desc:'Garma Garam is a hyperlocal food app connecting people with local home chefs to deliver authentic, home-cooked meals.',
-      tags:[['UI Design','b'],['Branding','o'],['Mobile App','p']],
-      role:'UI Designer',
-      timeline:'Feb 2024 \u2013 Apr 2024',
-      team:['Freya Thakkar','Prarthana Jain','Parth Akotkar'],
-      link:'https://freyathakkar.in/garma-garam',
-      problem:'Many people living away from home miss home-cooked food and the warmth, culture and tradition tied to it. Existing food-delivery services can\u2019t replicate this \u2014 an opportunity to connect them with home cooks across India.',
-      solution:'Garma Garam delivers authentic home-cooked meals prepared by local home chefs. With personalized meal plans and flexible pre-booking, the app offers a seamless, homely dining experience while helping home makers earn.',
-      preview:'https://framerusercontent.com/images/1xRUpqliJ5zqhvhn8OH7gyNM.png',
-      gallery:[
-        'https://framerusercontent.com/images/1xRUpqliJ5zqhvhn8OH7gyNM.png',
-        'https://framerusercontent.com/images/Katqg1zc6vaYx96nVmPe5opiQ.png',
-        'https://framerusercontent.com/images/eNbWZaQtV4BV5q8uYJiUdPezHM.png',
-        'https://framerusercontent.com/images/eRRFnsTNca31NowGedZjQUPDXzg.png',
-      ] },
-    { key:'automation', page:'Work', name:'Automation \u2014 n8n', logo:'#0f172a',
-      short:'Designing invisible interfaces that curated intelligence, generated content, and streamlined operations at KPMG.',
-      desc:'An ecosystem of autonomous agents built in n8n and Make to accelerate the KPMG creative team\u2019s pipeline \u2014 without adding cognitive load.',
-      tags:[['AI Design','b'],['Automation','g'],['Workflow','o']],
-      role:'AI Enthusiast \u00b7 Experience Designer',
-      timeline:'May 2025 \u2013 Present',
-      team:['Freya Thakkar','KPMG Creative Team'],
-      problem:'During my internship at KPMG India, our creative team faced a critical challenge: the friction between deep work and the need to stay updated with rapid-fire AI trends. We needed a way to accelerate our pipeline without adding cognitive load.',
-      solution:'I designed an ecosystem of autonomous agents using low-code tools like n8n and Make. My focus wasn\u2019t just on \u201Csaving time\u201D \u2014 it was on designing invisible interfaces that curated intelligence, generated content, and streamlined operations. This project transformed our workflow from a reactive manual process into a proactive, AI-driven system.',
-      preview:'/design-assets/n8n-3.webp',
-      gallery:[ '/design-assets/n8n-3.webp','/design-assets/n8n-2.webp','/design-assets/n8n-1.webp','https://framerusercontent.com/images/KSdnaJboKegwk0caSKAdeOcgY.png' ] },
-    { key:'innerlabs-web', page:'Work', name:'Innerlabs \u2014 Website Redesign', logo:'#4f46e5',
-      short:'An AI-visibility platform website redesigned to make complex concepts feel clear and enterprise-ready.',
-      desc:'Innerlabs is an AI visibility platform that helps brands understand how they appear across generative AI search engines like ChatGPT, Gemini, and Perplexity.',
-      tags:[['Website Design','b'],['Visual Design','o'],['IA','g']],
-      role:'Product Designer',
-      timeline:'2025',
-      team:['Freya Thakkar'],
-      problem:'The existing website didn\u2019t clearly communicate the product\u2019s value or establish trust with enterprise customers.',
-      solution:'I led the redesign from information architecture to high-fidelity UI, focusing on simplifying complex concepts into a clear narrative. The experience guides users from understanding the problem to exploring the platform\u2019s capabilities. I designed a scalable visual system, improved content hierarchy, introduced interactive product showcases, and optimized key conversion flows \u2014 balancing enterprise credibility with a modern AI-first aesthetic while making technical information easier to understand.',
-      preview:'/design-assets/innerlabs-landing.png',
-      gallery:['/design-assets/innerlabs-landing.png','/design-assets/innerlabs-platforms.png','/design-assets/innerlabs-howitworks.png','/design-assets/innerlabs-web.png'] },
     { key:'innerlabs-product', page:'Work', name:'Innerlabs \u2014 Product Design', logo:'#4f46e5',
-      short:'Designing the core platform that helps brands monitor their AI visibility across multiple LLMs.',
-      desc:'As the product designer at Innerlabs, I designed the core platform that enables brands to monitor their AI visibility across multiple large language models.',
-      tags:[['Product Design','g'],['UX Design','b'],['Data Viz','o']],
-      role:'Product Designer',
-      timeline:'2025',
-      team:['Freya Thakkar'],
-      problem:'The challenge was transforming large volumes of complex data into interfaces that were intuitive and actionable, while supporting enterprise teams at scale.',
-      solution:'My work included improving onboarding, dashboard experiences, prompt management, analytics, competitor tracking, persona mapping, and AI-generated insights. I collaborated closely with founders and engineers to define workflows, simplify interactions, and prioritize user needs \u2014 every feature designed with scalability in mind while maintaining a clean and efficient user experience.',
+      short:'Designing for AI Visibility \u2014 reimagining brand presence in the age of answer engines.',
+      desc:'A 16-week product design project for Inner Labs: \u201CDesigning for AI Visibility \u2014 Reimagining Brand Presence in the Age of Answer Engines.\u201D Inner Labs is a platform that helps businesses understand and improve how they appear inside AI-driven systems like ChatGPT, Gemini, Perplexity, Claude and Google AI Overviews. I designed the SaaS dashboard end-to-end \u2014 turning prompt, citation and sentiment data into a clear, narrative-driven experience.',
+      tags:[['Product Design','g'],['UX Design','b'],['Data Viz','o'],['AI','p']],
+      role:'Product Designer \u00b7 Sole Designer on the platform & website',
+      timeline:'Dec 2025 \u2013 Apr 2026 \u00b7 16 weeks',
+      team:['Freya Thakkar (Designer)','Yohann John \u2014 CEO, Inner Labs','Inner Labs engineering team'],
+      problem:'The way users discover information is shifting from ranked search results to AI-generated answers. Visibility is no longer about ranking on Google \u2014 it is about whether a brand is included inside a ChatGPT, Gemini, Perplexity or AI-Overview response. But these systems operate as a black box: brands cannot see how they are selected, prioritized or represented. Traditional SEO metrics like rankings and traffic no longer capture this layer of digital presence, and most teams are reduced to manually prompting ChatGPT to check where they stand \u2014 inconsistent, unscalable, and untrustworthy.',
+      solution:'I redesigned the Inner Labs platform (and supporting website) to make AI visibility clear, intuitive and actionable. The dashboard is structured around five connected sections \u2014 Overview, Sources, Answers, Sentiment + ORM, and Action Centre \u2014 plus Config and Reports. The system moves users from a high-level snapshot (visibility score, share of answer, sentiment) into prompt-level drill-downs, source and citation analysis, competitor benchmarking, and finally concrete recommendations in the Action Centre. The goal throughout was to reduce cognitive load on a complex, probabilistic domain, build trust through transparency (every insight traces back to the prompts and answers it came from), and let three very different user types \u2014 Operators, Analysts and Decision Makers \u2014 use the same product at the depth they need.',
+      sections:[
+        { title:'Research', body:'Research mixed secondary study of the AI-search landscape with primary conversations across the people who actually own brand visibility today.',
+          bullets:[
+            '9 user interviews \u2014 6 marketing professionals, 2 founders, and 1 product manager \u2014 mapping their current measurement stack and the blind spots that answer engines create.',
+            'Key insight: teams still optimize for Google but feel they are \u201Cguessing\u201D about AI; many manually prompt ChatGPT to check brand presence, but results change every run, so nothing is trackable.',
+            'Industry analysis on the shift from \u201Csearching\u201D to \u201Casking\u201D \u2014 how AI answers compress multiple sources into a single synthesized response and become the primary trust layer for decision-making.',
+            'Competitive teardown of Writesonic (strong content gen, weak on visibility tracking), Profound (prompt-level insight but overwhelming data) and Peec (good monitoring, but data-heavy and not actionable).',
+            'Synthesis into three opportunity areas: make AI visibility understandable, move from data to actionable insight, and communicate this new category clearly to first-time users.'
+          ] },
+        { title:'Personas', body:'Three personas anchored the product, representing the full range of engagement \u2014 from hands-on execution to strategic decision-making.',
+          bullets:[
+            'The Operator \u2014 Growth & Marketing teams. Tracks brand visibility across AI platforms day-to-day, analyses prompts, mentions and citations, and watches trends over time.',
+            'The Analyst \u2014 SEO & Data teams. Goes deep on visibility data, competitor benchmarking, prompt-level sources, and translates patterns into insight.',
+            'The Decision Maker \u2014 Founders & Leadership. Wants the high-level summary: brand positioning in AI, competitive standing, and what to do next.'
+          ] },
+        { title:'Process', body:'Structured across five phases \u2014 from brief and research through information architecture, high-fidelity UI, and final documentation.',
+          bullets:[
+            'Phase 1 \u2014 Industry & domain research: framing the shift from search to AI answers and why AI visibility matters.',
+            'Phase 2 \u2014 Competitor study and 9 user interviews; synthesis into personas, key challenges, and a user journey map.',
+            'Phase 3 \u2014 Refined brief, information architecture for the dashboard, and low-fidelity wireframes for the core flows (Overview, Sources, Answers, Sentiment, Action Centre, Config).',
+            'Phase 4 \u2014 Branding system (logo, DM Sans type scale, neutral palette with restrained accents) and high-fidelity UI for the platform and website.',
+            'Phase 5 \u2014 Final documentation, design handoff, and a research paper on designing for AI visibility.'
+          ] },
+        { title:'Information architecture', body:'The IA below maps the full dashboard \u2014 navigation, the six primary tabs (Overview, Sources, Sentiment+ORM, Answers, Action Centre, Config), and how each tab branches into its sub-flows. Building this map first kept every later wireframe and screen traceable back to a real user task.' },
+        { title:'Key design decisions', body:'',
+          bullets:[
+            'Overview answers three questions first \u2014 where you appear, on which platforms, and how sentiment is trending \u2014 with a single Visibility Score, AI Visibility %, Pages Mentioning You, and Sentiment split into one consolidated row.',
+            'Prompts are the unit of work: every metric is filterable by prompt set, model (ChatGPT, Gemini, Perplexity, Claude, Google AIO), branded vs. non-branded, persona, and topic \u2014 so any number traces back to a real buyer question.',
+            'Sources & citations promoted to a top-level section, with citation share, source-type distribution, and \u201Csources mentioning competitors but not you\u201D surfaced as opportunities, not buried rows.',
+            'Sentiment + ORM treated as a first-class dashboard area \u2014 reputation is part of visibility, not a side metric.',
+            'Action Centre closes the loop: AI-generated recommendations (content ideas, get-mentioned targets, playbooks) tied directly to the gaps shown in Sources and Answers.',
+            'Calm, data-first visual system on DM Sans with a near-monochrome base; color carries meaning (positive/negative sentiment, change, alert) rather than decoration.'
+          ] },
+        { title:'Scope of the platform', body:'The redesigned dashboard ships with the following sections:',
+          bullets:[
+            'Overview \u2014 General (visibility score, rank distribution, top cited content) and Advanced (competitive analysis by platform and topic, citation share, sentiment).',
+            'Sources \u2014 Overview, All Sources, and Citation Opportunities; tracks domains and pages citing your brand across all LLMs.',
+            'Answers \u2014 prompt-level view of how the brand appears in real AI responses, with visibility %, average rank, citation share, intent classification, and grouping.',
+            'Sentiment + ORM \u2014 brand perception across platforms and competitors.',
+            'Shopping \u2014 product-level overview for commerce brands.',
+            'Action Centre \u2014 content ideas, get-mentioned targets, and playbooks.',
+            'Config \u2014 prompt configuration (link personas, target LLMs, classification), competitor setup, and account settings.',
+            'My Report \u2014 consolidated, exportable performance reports.'
+          ] },
+        { title:'Outcome', body:'Delivered as the full Inner Labs platform redesign \u2014 dashboard, supporting website, and a brand + UI system \u2014 alongside a written research paper on designing for AI visibility.',
+          metrics:[
+            { value:'5', label:'LLMs covered \u2014 ChatGPT, Gemini, Perplexity, Claude, Google AIO' },
+            { value:'9', label:'User interviews (6 marketers, 2 founders, 1 PM)' },
+            { value:'3', label:'Personas \u2014 Operator, Analyst, Decision Maker' },
+            { value:'7', label:'Core dashboard sections shipped in the redesign' },
+            { value:'16', label:'Weeks \u00b7 Dec 2025 \u2013 Apr 2026' },
+            { value:'1', label:'Research paper on designing for AI visibility' }
+          ] },
+        { title:'Reflection', body:'This project helped me understand the complexity of designing for emerging technologies like AI, where systems are not transparent and user understanding becomes critical. The hardest part was simplifying highly abstract data into interfaces that feel intuitive and actionable \u2014 balancing clarity with depth so users can both explore and decide. It pushed me to structure information in layers, to think beyond screens into systems and flows, and reinforced that good design is not just about presenting data but about enabling understanding and action.' }
+      ],
       preview:'/design-assets/innerlabs-overview.png',
-      gallery:['/design-assets/innerlabs-overview.png','/design-assets/innerlabs-geolocation.png','/design-assets/innerlabs-sentiment.png','/design-assets/innerlabs-answers.png','/design-assets/innerlabs-sources-1.png','/design-assets/innerlabs-sources-2.png','/design-assets/innerlabs-product.png'] },
+      gallery:['/design-assets/innerlabs-ia-1.png','/design-assets/innerlabs-ia-4.png','/design-assets/innerlabs-ia-2.png','/design-assets/innerlabs-ia-3.png','/design-assets/innerlabs-geolocation.png','/design-assets/innerlabs-sentiment.png','/design-assets/innerlabs-answers.png','/design-assets/innerlabs-sources-1.png','/design-assets/innerlabs-sources-2.png'] },
+    { key:'innerlabs-web', page:'Work', name:'Innerlabs \u2014 Website Redesign', logo:'#4f46e5',
+      short:'An AI-visibility platform website redesigned to make a new product category feel clear and enterprise-ready.',
+      desc:'Inner Labs is an AI visibility platform that helps brands understand and improve how they appear across large language models such as ChatGPT, Gemini, Claude, and Perplexity. As the platform evolved, the website no longer reflected the maturity of the product or clearly communicated its value proposition. The redesign focused on creating a modern experience that simplified a technically complex product while building credibility with enterprise customers.',
+      tags:[['Website Design','b'],['UX Design','b'],['Design System','g']],
+      role:'UX Designer \u2014 end-to-end (discovery \u2192 UI \u2192 handoff)',
+      timeline:'2025',
+      team:['Freya Thakkar','Inner Labs founding & engineering team'],
+      link:'https://www.theinnerlabs.com/',
+      problem:'The existing website struggled to explain a new product category \u2014 AI Visibility and Answer Engine Optimization (AEO). Visitors found it difficult to understand what the platform offered, who it was built for, and how it differed from traditional SEO tools. The information architecture had grown inconsistent, making navigation and feature discovery difficult.',
+      solution:'I led the end-to-end UX process \u2014 product discovery, user flows, information architecture, wireframing, high-fidelity UI, responsive layouts, design-system refinement and developer handoff \u2014 to deliver a clean, enterprise-credible site that explains the platform clearly and scales as new product pages are added.',
+      sections:[
+        { title:'Design goals', body:'',
+          bullets:[
+            'Clearly communicate the AI Visibility platform.',
+            'Simplify complex product concepts.',
+            'Improve navigation and content hierarchy.',
+            'Build trust with enterprise customers.',
+            'Increase demo requests through stronger CTAs.',
+            'Create a scalable design system for future growth.'
+          ] },
+        { title:'Process', body:'I began by auditing the existing website and identifying friction across navigation, messaging, and content structure. Competitor research helped benchmark SaaS and AI platforms to understand common patterns and opportunities for differentiation.\n\nThe content was reorganized into a clearer information architecture, followed by wireframes that prioritized readability, progressive disclosure, and user flow. Visual design focused on a clean enterprise aesthetic with consistent spacing, typography, reusable components, and interactive elements that showcased the product without overwhelming users.' },
+        { title:'Key UX improvements', body:'',
+          bullets:[
+            'Rebuilt the website information architecture.',
+            'Simplified navigation across product pages.',
+            'Redesigned the homepage to clearly communicate value.',
+            'Introduced modular sections for scalability.',
+            'Improved feature discoverability through structured content.',
+            'Designed responsive layouts for desktop and mobile.',
+            'Created reusable design components for faster development.',
+            'Improved CTA placement throughout the user journey.'
+          ] },
+        { title:'Outcome', body:'The redesigned website better communicates Inner Labs\u2019 AI visibility platform while providing a more intuitive browsing experience for enterprise users. The modular design system also enables the team to scale new product pages and features efficiently as the platform evolves.' },
+        { title:'Skills', body:'UX Research \u00b7 Information Architecture \u00b7 User Flows \u00b7 Wireframing \u00b7 UI Design \u00b7 Design Systems \u00b7 Responsive Design \u00b7 Figma \u00b7 Developer Handoff' }
+      ],
+      preview:'/design-assets/innerlabs-landing.png',
+      gallery:['/design-assets/innerlabs-landing.png','/design-assets/innerlabs-platforms.png','/design-assets/innerlabs-howitworks.png'] },
     { key:'solutelabs-web', page:'Work', name:'SoluteLabs \u2014 Website Redesign', logo:'#0ea5e9',
       short:'A B2B marketing-site redesign focused on clarity, hierarchy and conversion for SoluteLabs.',
       desc:'During my internship at SoluteLabs, I redesigned the company\u2019s marketing website to better reflect its expertise in product engineering and digital transformation.',
@@ -607,7 +734,165 @@ class Component extends DCLogic {
       problem:'SourceIn needed an identity that felt approachable while maintaining credibility for both businesses and job seekers \u2014 distinct in a category that often defaults to generic B2B treatments.',
       solution:'I developed the complete brand system: logo, typography, color palette, iconography, and supporting visual language. Alongside the core branding, I created guidelines and application mockups across digital and marketing touchpoints to ensure consistency \u2014 a strong foundation that scales across products, communication, and future business growth.',
       preview:'/design-assets/sourcein-logo.png',
-      gallery:['/design-assets/sourcein-1.png','/design-assets/sourcein-2.png','/design-assets/sourcein-3.png','/design-assets/sourcein-4.png'] },
+      gallery:['/design-assets/sourcein-logo.png','/design-assets/sourcein-1.png','/design-assets/sourcein-2.png','/design-assets/sourcein-3.png','/design-assets/sourcein-4.png'] },
+    { key:'garmagaram', page:'Work', name:'Garma Garam', logo:'#e11d48',
+      short:'A hyperlocal marketplace connecting users with verified home chefs \u2014 authentic homemade meals, plus an earning channel for homemakers.',
+      desc:'Millions of students and working professionals move away from home every year, often sacrificing the comfort of home-cooked meals for convenience. While food delivery platforms make ordering easy, they rarely recreate the warmth, familiarity, and cultural connection that comes with food prepared at home. Garma Garam is a hyperlocal marketplace that connects users with verified home chefs, making authentic home-cooked meals accessible while creating entrepreneurial opportunities for homemakers.',
+      tags:[['UI Design','b'],['UX Design','b'],['Branding','o'],['Mobile App','p']],
+      role:'UI/UX Designer',
+      timeline:'Feb 2024 \u2013 Apr 2024',
+      team:['Freya Thakkar','Prarthana Jain','Parth Akotkar'],
+      problem:'Existing food delivery platforms are optimized for restaurants \u2014 not home kitchens. Users looking for nutritious, homemade meals often struggle to find trusted home cooks, personalized meal options, or the ability to build recurring meal plans. At the same time, thousands of talented home chefs lack an accessible platform to monetize their cooking skills. The challenge was to design an experience that served both sides of the marketplace while preserving the warmth and authenticity of homemade food.',
+      solution:'Garma Garam is a hyperlocal platform where users can discover nearby home chefs, order freshly prepared homemade meals, and subscribe to personalized meal plans. Beyond food delivery, the platform creates sustainable earning opportunities for home cooks while helping preserve regional cuisines and family recipes.',
+      sections:[
+        { title:'My responsibilities', body:'',
+          bullets:[
+            'Product ideation',
+            'User experience design',
+            'Information architecture',
+            'User flow creation',
+            'Wireframing',
+            'Design system & component library',
+            'High-fidelity UI design',
+            'Interactive prototyping',
+            'Brand identity design'
+          ] },
+        { title:'Understanding the opportunity', body:'Before designing the product, we explored the rapidly growing hyperlocal delivery ecosystem and analyzed how users currently order food. While existing platforms excel at convenience, they focus primarily on restaurants and cloud kitchens. We identified a gap for a service centered around trust, personalization, nutrition, and community rather than just speed.\n\nThe goal: create an experience that feels less like ordering food and more like receiving a meal from home.' },
+        { title:'Problem statement', body:'People living away from home miss the comfort, familiarity, and emotional connection of home-cooked food. Current delivery platforms fail to recreate this experience, creating an opportunity to connect users with local home chefs while empowering homemakers through entrepreneurship.' },
+        { title:'Product strategy', body:'The product was designed around three primary user needs:',
+          bullets:[
+            'Comfort \u2014 deliver food that feels homemade, familiar, and culturally authentic.',
+            'Convenience \u2014 allow users to pre-book meals, subscribe for recurring deliveries, and customize their meal plans.',
+            'Community \u2014 enable home chefs to build their own customer base while creating new sources of income.'
+          ] },
+        { title:'Core features', body:'',
+          bullets:[
+            'Browse meals prepared by verified home chefs',
+            'Discover authentic regional cuisines',
+            'Schedule meals in advance',
+            'Create recurring meal subscriptions',
+            'Customize dietary preferences',
+            'Add cooking instructions and special requests',
+            'Save favorite dishes and home chefs'
+          ] },
+        { title:'Information architecture', body:'To keep the experience intuitive, we mapped the complete user journey before designing interfaces. The platform focuses on four primary flows:',
+          bullets:[
+            'Discovering nearby home chefs',
+            'Ordering individual meals',
+            'Creating recurring subscription plans',
+            'Managing favorites and saved cooks'
+          ] },
+        { title:'Design process', body:'The visual identity was inspired by warmth, family, and Indian culinary traditions. Building a design system early allowed the interface to remain visually consistent while speeding up the design process.',
+          bullets:[
+            'Brand identity',
+            'Logo and color palette',
+            'Typography system',
+            'Reusable component library',
+            'Low-fidelity wireframes',
+            'High-fidelity mobile interfaces'
+          ] },
+        { title:'Designing the experience', body:'The interface was intentionally designed to feel welcoming and familiar rather than transactional. Every interaction was designed to reduce decision fatigue while making homemade food feel easily accessible.',
+          bullets:[
+            'Personalized home feed based on meal preferences',
+            'Cuisine-based discovery',
+            'Home chef profiles with ratings and specialties',
+            'Dynamic meal planning',
+            'Dietary preference selection',
+            'Calendar-based subscription scheduling',
+            'Simple checkout and payment flow'
+          ] },
+        { title:'Prototype', body:'To validate the overall experience, I designed an interactive prototype covering the primary user journeys \u2014 discovering home chefs, ordering meals, creating subscription plans, and managing recurring deliveries. The prototype demonstrates the complete end-to-end experience from exploration to checkout.' },
+        { title:'Outcome', body:'The final concept showcases how a hyperlocal marketplace can extend beyond traditional food delivery by building trust between customers and home chefs. The product creates value for both sides of the ecosystem:',
+          bullets:[
+            'For users \u2014 easy access to authentic home-cooked meals, flexible meal subscriptions, personalized dining experience, greater dietary control.',
+            'For home chefs \u2014 new income opportunities, direct customer relationships, increased visibility, a platform to showcase regional cuisines.'
+          ] },
+        { title:'Reflection', body:'This project taught me that designing a marketplace requires balancing the needs of multiple stakeholders rather than focusing solely on the end user. It also strengthened my understanding of product strategy, information architecture, and scalable UI systems. If I were to continue this project, I would conduct usability testing with both customers and home chefs, validate subscription behavior through user research, and expand the platform with chef onboarding, delivery partner workflows, ratings, and operational dashboards to transform the concept into a production-ready product.' }
+      ],
+      preview:'https://framerusercontent.com/images/1xRUpqliJ5zqhvhn8OH7gyNM.png',
+      gallery:[
+        'https://framerusercontent.com/images/1xRUpqliJ5zqhvhn8OH7gyNM.png',
+        'https://framerusercontent.com/images/Katqg1zc6vaYx96nVmPe5opiQ.png',
+        'https://framerusercontent.com/images/eNbWZaQtV4BV5q8uYJiUdPezHM.png',
+        'https://framerusercontent.com/images/eRRFnsTNca31NowGedZjQUPDXzg.png',
+      ] },
+    { key:'pickabook', page:'Work', name:'Pick A Book', logo:'#c2410c',
+      short:'Reimagining public libraries in India through service design \u2014 a centralized book reservation and inter-library borrowing service.',
+      desc:'Despite being valuable public resources, libraries across India remain significantly underutilized. While governments have invested in digitization initiatives and modern library infrastructure, awareness, accessibility, and operational inefficiencies continue to limit adoption. Our team set out to understand why people weren\u2019t using public libraries despite the availability of services, and how service design could bridge the gap between user expectations and existing systems.',
+      tags:[['UX Design','b'],['User Research','g'],['Service Design','o']],
+      role:'UX Designer \u00b7 User Researcher',
+      timeline:'Sept 2024 \u2013 Nov 2024',
+      team:['Freya Thakkar','Vritti Dagalia','Yashvi Kamdar','Vanshika Maheshwari'],
+      problem:'Public perception of libraries has shifted over time. Many users associate them with outdated systems, limited accessibility, and poor discoverability of resources. However, our initial assumption proved only partially true. During field visits and stakeholder interviews, we discovered that existing library users were largely satisfied with their experience. The bigger challenge wasn\u2019t retention \u2014 it was attracting new users and improving operational efficiency behind the scenes. This shifted the focus of our research from improving the reading experience to redesigning the service ecosystem.',
+      solution:'We designed PICK A BOOK, a centralized book reservation and inter-library borrowing service. Instead of visiting multiple libraries searching for a book, users can search books online, reserve titles digitally, select a convenient pickup library, receive notifications when the book arrives, and return books to any participating library. The service connects directly with existing library systems such as e-Granthalaya, minimizing operational changes while improving accessibility.',
+      sections:[
+        { title:'My responsibilities', body:'',
+          bullets:[
+            'Planned and conducted field research',
+            'Interviewed library visitors and staff',
+            'Synthesized research findings',
+            'Created affinity maps and service blueprints',
+            'Defined problem statements',
+            'Designed system architecture',
+            'Designed the librarian dashboard and service workflow',
+            'Built high-fidelity UI prototypes'
+          ] },
+        { title:'Research', body:'We visited multiple public libraries, interviewed both visitors and non-users, and spoke extensively with librarians to understand the complete ecosystem. The key insight: existing visitors were generally happy with library services \u2014 the operational challenges, however, were significant.',
+          bullets:[
+            'Low awareness of available library services',
+            'Inefficient resource utilization across branches',
+            'Manual inventory management',
+            'Poor visibility into book availability',
+            'Limited digital touchpoints for users',
+            'Books remaining idle despite demand elsewhere'
+          ] },
+        { title:'Defining the problem', body:'After mapping user journeys, stakeholder pain points, and organizational challenges, we identified a clear gap between what libraries offered and what people believed they offered.\n\nProblem statement: Public libraries in India struggle to remain relevant due to fragmented systems, limited awareness, and outdated service experiences. While resources already exist, users lack convenient ways to discover, access, and borrow them.' },
+        { title:'Ideation', body:'Through affinity mapping and multiple ideation workshops, we explored several possible interventions. Rather than replacing existing infrastructure, we looked for ways to enhance it. The opportunity lay in building a service that could seamlessly integrate with existing library management systems while making borrowing significantly more accessible.' },
+        { title:'Service design', body:'To support the experience, we designed the complete service ecosystem, including user journey, storyboard, service blueprint, stakeholder interactions, inter-library logistics, and centralized system architecture. The proposed workflow introduces librarians as active service coordinators while automating communication between participating libraries.' },
+        { title:'Dashboard design', body:'As part of the solution, I designed a concept dashboard for librarians that integrates with existing management systems like Koha and e-Granthalaya. The dashboard enables staff to:',
+          bullets:[
+            'Track pending requests',
+            'Monitor book transfers',
+            'Manage inventory',
+            'View overdue returns',
+            'Send reminders',
+            'Monitor branch-level performance'
+          ] },
+        { title:'Impact', body:'Although conceptual, the proposed service demonstrates how public libraries can improve accessibility without replacing existing infrastructure. The solution would help:',
+          bullets:[
+            'Increase resource utilization across branches',
+            'Reduce inventory duplication',
+            'Improve discoverability of books',
+            'Encourage new library memberships',
+            'Simplify borrowing for students and researchers',
+            'Modernize the overall public library experience'
+          ] },
+        { title:'Reflection', body:'This project fundamentally changed the way I think about UX. Rather than immediately designing interfaces, we first questioned whether the real problem existed where we assumed it did. Our research revealed that users weren\u2019t dissatisfied with libraries \u2014 the underlying service model was. By reframing the problem, we shifted from designing a digital product to designing an end-to-end service that balanced user needs, operational constraints, and organizational goals. It reinforced the importance of validating assumptions, involving stakeholders early, and treating UX as a systems-thinking discipline rather than just interface design.' }
+      ],
+      preview:'/design-assets/pab-dashboard-home.png',
+      gallery:[
+        'https://framerusercontent.com/images/mFjJoqKh0ZhyMZb1ByVYanYemEw.png',
+        'https://framerusercontent.com/images/WRXzqiQ1Pib1m1GbaDkXj7xPJc.png',
+        '/design-assets/pab-dashboard-home.png',
+        '/design-assets/pab-dashboard-books.png',
+        '/design-assets/pab-dashboard-accounts.png',
+        '/design-assets/pab-booknest-landing.png',
+        '/design-assets/pab-booknest-landing-v2.png',
+        '/design-assets/pab-booknest-home.png',
+        '/design-assets/pab-booknest-onhold.png',
+        '/design-assets/pab-booknest-detail.png',
+      ] },
+    { key:'automation', page:'Work', name:'Automation \u2014 n8n', logo:'#0f172a',
+      short:'Designing invisible interfaces that curated intelligence, generated content, and streamlined operations at KPMG.',
+      desc:'An ecosystem of autonomous agents built in n8n and Make to accelerate the KPMG creative team\u2019s pipeline \u2014 without adding cognitive load.',
+      tags:[['AI Design','b'],['Automation','g'],['Workflow','o']],
+      role:'AI Enthusiast \u00b7 Experience Designer',
+      timeline:'May 2025 \u2013 Present',
+      team:['Freya Thakkar','KPMG Creative Team'],
+      problem:'During my internship at KPMG India, our creative team faced a critical challenge: the friction between deep work and the need to stay updated with rapid-fire AI trends. We needed a way to accelerate our pipeline without adding cognitive load.',
+      solution:'I designed an ecosystem of autonomous agents using low-code tools like n8n and Make. My focus wasn\u2019t just on \u201Csaving time\u201D \u2014 it was on designing invisible interfaces that curated intelligence, generated content, and streamlined operations. This project transformed our workflow from a reactive manual process into a proactive, AI-driven system.',
+      preview:'/design-assets/n8n-3.webp',
+      gallery:[ '/design-assets/n8n-3.webp','/design-assets/n8n-2.webp','/design-assets/n8n-1.webp','https://framerusercontent.com/images/KSdnaJboKegwk0caSKAdeOcgY.png' ] },
     { key:'foodtransparency', page:'Writing', name:'The Future of Food Transparency', logo:'#1f8a5b',
       short:'A speculative design exploring a future where every food product carries a transparent digital history.',
       desc:'A speculative design project exploring how radical transparency could reshape consumer trust and ethical food systems.',
@@ -689,7 +974,7 @@ class Component extends DCLogic {
     this.applyTheme();
   }
   componentDidUpdate(){ this.applyTheme(); }
-  componentWillUnmount(){ window.removeEventListener('mousemove', this._mv); window.removeEventListener('mouseup', this._up); window.removeEventListener('keydown', this._key); if(this._canvas){ this._canvas.removeEventListener('wheel', this._wheel); this._canvas.removeEventListener('touchstart', this._pinchStart); this._canvas.removeEventListener('touchmove', this._pinchMove); this._canvas.removeEventListener('touchend', this._pinchEnd); } }
+  componentWillUnmount(){ window.removeEventListener('mousemove', this._mv); window.removeEventListener('mouseup', this._up); window.removeEventListener('touchmove', this._mv); window.removeEventListener('touchend', this._up); window.removeEventListener('keydown', this._key); if(this._canvas){ this._canvas.removeEventListener('wheel', this._wheel); this._canvas.removeEventListener('touchstart', this._pinchStart); this._canvas.removeEventListener('touchmove', this._pinchMove); this._canvas.removeEventListener('touchend', this._pinchEnd); } }
 
   zoomAt(mx,my,factor){
     this.setState(st=>{
@@ -773,26 +1058,63 @@ class Component extends DCLogic {
 
     let modal = null;
     if(s.modalKey){
-      const idx = this.projects.findIndex(p=>p.key===s.modalKey);
-      const p = this.projects[idx];
-      const n = this.projects.length;
+      const samePage = this.projects.filter(x=>x.page===this.projects.find(y=>y.key===s.modalKey).page);
+      const idx = samePage.findIndex(p=>p.key===s.modalKey);
+      const p = samePage[idx];
+      const n = samePage.length;
       const isWriting = p.page==='Writing' && !!p.link;
+      const isWork = p.page==='Work' && !!p.link;
+      const pad2 = (k)=>('0'+(k+1)).slice(-2);
+      const sectionsBuilt = (p.sections||[]).map((sec,i) => {
+        const hasBullets = !!(sec.bullets && sec.bullets.length);
+        const hasMetrics = !!(sec.metrics && sec.metrics.length);
+        const hasBody = !!(sec.body && sec.body.length);
+        return {
+          num: pad2(i+2), // 01=Problem, 02=Solution, so sections start at 03
+          title: sec.title,
+          body: sec.body || '',
+          hasBody,
+          hasBullets,
+          bullets: (sec.bullets||[]).map(t => ({text:t})),
+          hasMetrics,
+          metrics: sec.metrics || [],
+          hasNoExtras: !hasBullets && !hasMetrics && !hasBody
+        };
+      });
+      // adjust numbering: Problem=01, Solution=02 (if present), then sections from there
+      const hasSolution = !!p.solution;
+      const startNum = hasSolution ? 3 : 2;
+      sectionsBuilt.forEach((sec,i)=>{ sec.num = pad2(startNum + i - 1); });
+      const galleryStart = startNum + sectionsBuilt.length;
+      const prev = samePage[(idx-1+n)%n];
+      const next = samePage[(idx+1)%n];
+      const hero = p.preview || (p.gallery && p.gallery[0]) || '';
       modal = { name:p.name, desc:p.desc, role:p.role, problem:p.problem, logo:p.logo,
-        ctaHref: isWriting ? p.link : '#contact',
-        ctaTarget: isWriting ? '_blank' : '_self',
-        ctaLabel: isWriting ? 'Read on Medium' : 'Get in touch for details',
-        ctaOnClick: isWriting ? null : (e)=>{ if(e&&e.preventDefault)e.preventDefault(); this.setState({modalKey:null, page:'Contact', panX:0, panY:0}); },
+        hero, hasHero: !!hero,
+        heroEl: hero ? React.createElement('img',{src:hero,alt:'',draggable:false,style:{position:'absolute',inset:0,width:'100%',height:'100%',objectFit:'cover',objectPosition:'top center'}}) : null,
+        onHeroZoom: hero ? ()=>this.setState({lightbox:hero}) : null,
+        indexLabel: pad2(idx) + ' / ' + pad2(n-1),
+        tags: p.tags.map(([label,c])=>{ const t=this.tagColor(c); return {label,bg:t.bg,fg:t.fg}; }),
+        ctaHref: isWriting ? p.link : (isWork ? p.link : '#contact'),
+        ctaTarget: (isWriting || isWork) ? '_blank' : '_self',
+        ctaLabel: isWriting ? 'Read on Medium' : (isWork ? 'Visit live project' : 'Get in touch for details'),
+        ctaOnClick: (isWriting || isWork) ? null : (e)=>{ if(e&&e.preventDefault)e.preventDefault(); this.setState({modalKey:null, page:'Contact', panX:0, panY:0}); },
         timeline:p.timeline||'\u2014', team:(p.team||['Solo project']).join(', '),
-        solution:p.solution||'', hasSolution:!!p.solution,
-        gallery:(p.gallery||[]).map((src,i)=>({
+        solution:p.solution||'', hasSolution,
+        sections: sectionsBuilt,
+        galleryNum: pad2(galleryStart - 1),
+        hasGallery: !!(p.gallery && p.gallery.filter(g=>g!==hero).length),
+        gallery:(p.gallery||[]).filter(src=>src!==hero).map((src,i)=>({
           id:'gal-'+p.key+'-'+i,
           el: src
-            ? React.createElement('img',{key:i,src,alt:'',draggable:false,style:{display:'block',width:'100%',height:'auto',borderRadius:'12px',background:'var(--slotbg)'}})
-            : React.createElement('div',{key:i,style:{display:'flex',alignItems:'center',justifyContent:'center',width:'100%',height:'220px',borderRadius:'12px',background:'var(--slotbg)',color:'var(--muted)',fontSize:'13px'}},'Showcase ' + (i+1))
+            ? React.createElement('img',{key:i,src,alt:'',draggable:false,onClick:()=>this.setState({lightbox:src}),style:{display:'block',width:'100%',height:'auto',background:'var(--slotbg)',cursor:'zoom-in'}})
+            : React.createElement('div',{key:i,style:{display:'flex',alignItems:'center',justifyContent:'center',width:'100%',height:'220px',background:'var(--slotbg)',color:'var(--muted)',fontSize:'13px'}},'Showcase ' + (i+1))
         })),
+        prevName: prev.name, nextName: next.name,
+        scrollRef:(el)=>{ this._modalScroll = el; },
         onClose:()=>this.setState({modalKey:null}),
-        onPrev:()=>this.setState({modalKey:this.projects[(idx-1+n)%n].key}),
-        onNext:()=>this.setState({modalKey:this.projects[(idx+1)%n].key}) };
+        onPrev:()=>{ if(this._modalScroll) this._modalScroll.scrollTop=0; this.setState({modalKey:prev.key}); },
+        onNext:()=>{ if(this._modalScroll) this._modalScroll.scrollTop=0; this.setState({modalKey:next.key}); } };
     }
 
     const noteHex = {Yellow:'#ffe169',Pink:'#ff9ec0',Green:'#a8ecb4',Blue:'#a6d8f7',Purple:'#d3b8f7',Orange:'#ffcf99'};
@@ -847,18 +1169,18 @@ class Component extends DCLogic {
 
     return {
       rootRef:(el)=>{ this._root=el; },
-      mobileOpen: s.mobileOpen,
-      onOpenMobile:()=>this.setState({mobileOpen:true}),
-      onCloseMobile:()=>this.setState({mobileOpen:false}),
       pages, layerGroups,
       spiral:[0,0,0,0,0,0,0,0,0,0,0],
       isAbout:s.page==='About', isWork:s.page==='Work', isPlayground:s.page==='Playground', isBuilds:s.page==='Writing', isContact:s.page==='Contact',
       workCards:this.projects.filter(p=>p.page==='Work').map(p=>this.card(p)),
       buildCards:this.projects.filter(p=>p.page==='Writing').map(p=>this.card(p)),
-      workedWith:['KPMG','SoluteLabs','UID','Innerlabs','SourceIn','Pick A Book','Garma Garam','Figma','Maze','Lovable','n8n','Notion'],
+      workedWith:['KPMG','SoluteLabs','Innerlabs','SourceIn'],
       socials:[{name:'LinkedIn',href:'https://www.linkedin.com/in/freya-thakkar/'},{name:'Medium',href:'https://medium.com/@freyaidesign'},{name:'Email',href:'mailto:freyaidesign@gmail.com'}],
       darkIcon: s.dark?sun:moon,
       onToggleDark:()=>this.setState(st=>({dark:!st.dark})),
+      mobileOpen:s.mobileOpen,
+      onOpenMobile:()=>this.setState({mobileOpen:true}),
+      onCloseMobile:()=>this.setState({mobileOpen:false}),
       noteToolOpen, stickyColors,
       selBg, selIcon, noteBg, noteIcon, noteDot, shapeBg, shapeIcon,
       onSelectTool:()=>this.setState({tool:'select'}),
@@ -872,6 +1194,8 @@ class Component extends DCLogic {
       stop:(e)=>{ if(e&&e.stopPropagation)e.stopPropagation(); },
       noop:(e)=>{ if(e&&e.preventDefault)e.preventDefault(); },
       panTransform:'translate('+s.panX+'px, '+s.panY+'px) scale('+s.zoom+')',
+      lightbox:s.lightbox, lightboxOpen:!!s.lightbox, lightboxEl: s.lightbox ? React.createElement('img',{src:s.lightbox,alt:'',draggable:false,style:{maxWidth:'100%',maxHeight:'100%',objectFit:'contain',borderRadius:'6px',boxShadow:'0 24px 60px rgba(0,0,0,.5)'}}) : null,
+      onCloseLightbox:()=>this.setState({lightbox:null}),
       onCanvasDown:(e)=>{ if(e.button!==0 && !e.touches) return; if(e.target.closest && e.target.closest('[data-nopan]')) return; if(s.tool==='note'||s.tool==='shape'){ this.placeItem(e); return; } this._deselectOnPan(); const c=this._getCoords(e); this._panning=true; this._sx=c.clientX; this._sy=c.clientY; this._px=s.panX; this._py=s.panY; }
     };
   }
