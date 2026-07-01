@@ -30,6 +30,7 @@ body{margin:0;background:#dcdcdc;}
 .fig-mdrawer-overlay{position:fixed;inset:0;background:rgba(20,20,20,.4);z-index:88;}
 .fig-mdrawer{position:fixed;top:0;left:0;bottom:0;width:288px;max-width:86vw;background:#fff;z-index:89;display:flex;flex-direction:column;overflow:hidden;box-shadow:0 12px 30px rgba(0,0,0,.25);}
 @media (max-width: 1100px){ .fig-side-right{display:none !important;} }
+.fig-modal-close-float{display:none;}
 @media (max-width: 820px){
   .fig-side-left{display:none !important;}
   .fig-hamburger{display:flex;}
@@ -38,11 +39,15 @@ body{margin:0;background:#dcdcdc;}
   .fig-work-inner, .fig-writing-inner{width:100% !important;padding-left:20px !important;padding-right:20px !important;}
   .fig-contact{width:calc(100% - 32px) !important;flex-direction:column !important;gap:28px !important;left:16px !important;transform:translateY(-50%) !important;}
   .fig-root{padding:6px !important;gap:6px !important;}
+  /* full-screen, comfortable case-study modal on mobile */
+  .fig-modal{padding:0 !important;}
+  .fig-modal-inner{max-width:100% !important;max-height:100vh !important;border-radius:0 !important;}
+  .fig-modal-body{padding:22px 18px 40px !important;}
+  .fig-modal-close-float{display:flex !important;}
 }
 @media (max-width: 520px){
   .fig-worked-with{grid-template-columns:repeat(2,1fr) !important;}
-  .fig-modal{padding:8px !important;}
-  .fig-modal-body{padding:18px 18px 24px !important;}
+  .fig-modal-body{padding:18px 16px 36px !important;}
 }
 </style>
 </helmet>
@@ -455,8 +460,10 @@ body{margin:0;background:#dcdcdc;}
 
   <!-- ===================== MODAL ===================== -->
   <sc-if value="{{modalOpen}}" hint-placeholder-val="{{false}}">
-    <div onClick="{{modal.onClose}}" style="position:fixed;inset:0;background:rgba(15,15,18,.55);display:flex;align-items:center;justify-content:center;z-index:80;padding:24px;backdrop-filter:blur(4px);">
-      <div onClick="{{stop}}" style="width:940px;max-width:100%;max-height:92vh;background:var(--panel);border-radius:18px;box-shadow:0 32px 80px rgba(0,0,0,.45);display:flex;flex-direction:column;overflow:hidden;">
+    <div onClick="{{modal.onClose}}" class="fig-modal" style="position:fixed;inset:0;background:rgba(15,15,18,.55);display:flex;align-items:center;justify-content:center;z-index:80;padding:24px;backdrop-filter:blur(4px);">
+      <div onClick="{{stop}}" class="fig-modal-inner" style="position:relative;width:940px;max-width:100%;max-height:92vh;background:var(--panel);border-radius:18px;box-shadow:0 32px 80px rgba(0,0,0,.45);display:flex;flex-direction:column;overflow:hidden;">
+        <!-- floating close (mobile) -->
+        <div onClick="{{modal.onClose}}" class="fig-modal-close-float" data-nopan="1" style="position:absolute;top:12px;right:12px;z-index:5;width:40px;height:40px;border-radius:50%;background:var(--panel);border:1px solid var(--bd);box-shadow:0 4px 14px rgba(0,0,0,.18);align-items:center;justify-content:center;cursor:pointer;color:var(--text);"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><line x1="6" y1="6" x2="18" y2="18"></line><line x1="18" y1="6" x2="6" y2="18"></line></svg></div>
         <!-- top bar -->
         <div style="display:flex;align-items:center;padding:12px 16px;border-bottom:1px solid var(--divider);flex-shrink:0;">
           <div style="display:flex;gap:4px;">
@@ -475,7 +482,7 @@ body{margin:0;background:#dcdcdc;}
             </div>
           </sc-if>
 
-          <div style="padding:40px 56px 48px;max-width:880px;margin:0 auto;">
+          <div class="fig-modal-body" style="padding:40px 56px 48px;max-width:880px;margin:0 auto;">
             <!-- TITLE BLOCK -->
             <div style="display:flex;flex-wrap:wrap;gap:8px;margin-bottom:14px;">
               <sc-for list="{{modal.tags}}" as="tg" hint-placeholder-count="2"><span style="font-size:11px;padding:4px 10px;border-radius:20px;background:{{tg.bg}};color:{{tg.fg}};font-weight:500;letter-spacing:.01em;">{{tg.label}}</span></sc-for>
